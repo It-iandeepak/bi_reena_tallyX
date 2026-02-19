@@ -16,6 +16,7 @@ const CustomCursor = () => {
         let ringY = 0;
         let dotX = 0;
         let dotY = 0;
+        let animationFrameId;
 
         const onMouseMove = (e) => {
             mouseX = e.clientX;
@@ -58,19 +59,19 @@ const CustomCursor = () => {
             dotX += (mouseX - dotX) * 0.9;
             dotY += (mouseY - dotY) * 0.9;
 
-            ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-            dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+            if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+            if (dot) dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
 
-            requestAnimationFrame(animate);
+            animationFrameId = requestAnimationFrame(animate);
         };
 
-        const animationFrame = requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mousedown', onMouseDown);
             window.removeEventListener('mouseup', onMouseUp);
-            cancelAnimationFrame(animationFrame);
+            cancelAnimationFrame(animationFrameId);
             clearInterval(interval);
 
             document.querySelectorAll('a, button, .hover-trigger').forEach(el => {
