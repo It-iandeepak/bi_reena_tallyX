@@ -57,37 +57,65 @@ button {
 
 /* Navbar - VMSlide Clone */
 .top-gradient-bar {
-    height: 8px;
+    height: 40px;
     width: 100%;
     background: linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
     position: fixed;
-    top: 0;
+    top: -10px;
     left: 0;
     z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    /* Compensate for the top: -10px offset so text is visually centered */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+
 }
 
 .navbar {
     position: fixed;
-    top: 0;
+    top: 5px;
     /* Below gradient bar */
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1.25rem 0;
+    padding: 2rem;
+    padding-top: 4rem;
+    /* padding-inline-start: 20px;
+    padding-inline-end: 20px; */
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
+    justify-content: space-between;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    /* match site padding (1.5rem x 2) */
+    max-width: 1200px;
+    /* match page layout */
+    height: 1px;
+    background-color: #E5E7EB;
 }
 
 .navbar.scrolled {
-    padding: 1rem 0;
+    padding: 3.3rem 0;
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: var(--shadow-soft);
 }
 
 .navbar-container {
     display: flex;
+    /* padding-top: -1rem; */
     align-items: center;
     justify-content: space-between;
 
@@ -122,6 +150,7 @@ button {
 .nav-links {
     display: flex;
     gap: 2.25rem;
+
 }
 
 .nav-links a {
@@ -136,6 +165,7 @@ button {
 /* Navigation Links Glow */
 .nav-links a:hover {
     color: var(--color-primary-blue);
+    transform: translateY(-2px);
     text-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
     /* Subtle Blue Text Glow */
 }
@@ -160,7 +190,7 @@ button {
 .btn-default:hover {
     background: #ffffff;
     box-shadow: 0 0 15px rgba(236, 72, 153, 0.5), 0 0 5px rgba(139, 92, 246, 0.5);
-    transform: translateY(-1px);
+    transform: translateY(-5px);
     color: #ec4899;
 }
 
@@ -176,7 +206,7 @@ button {
 
 /* Hero Section */
 .hero-section {
-    padding-top: 10rem;
+    padding-top: 12rem;
     padding-bottom: 6rem;
     text-align: center;
     position: relative;
@@ -184,6 +214,20 @@ button {
     /* Critical Requirement */
     overflow: hidden;
     /* Critical User Requirement */
+}
+
+.hero-left-bubble {
+    position: absolute;
+    top: 41%;
+    left: -10px;
+    /* Adjust this value to control how much is visible */
+    transform: translateY(-50%);
+    width: 50px;
+    /* Example size, adjust as needed */
+    height: auto;
+    object-fit: contain;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Blobs - ensure they are behind everything or managed explicitly */
@@ -262,7 +306,7 @@ button {
 
 /* Primary Button Glow - Intense Blue/Cyan */
 .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-5px);
     box-shadow: 0 0 25px rgba(0, 85, 255, 0.6), 0 0 10px rgba(56, 189, 248, 0.6);
 }
 
@@ -277,6 +321,7 @@ button {
 /* Secondary Button Glow - Warm Orange/Pink */
 .btn-white:hover {
     border-color: #fb923c;
+    transform: translateY(-5px);
     background: white;
     box-shadow: 0 0 20px rgba(251, 146, 60, 0.45), 0 0 5px rgba(236, 72, 153, 0.3);
     color: #ea580c;
@@ -312,7 +357,7 @@ button {
 /* Image Dashboard */
 .dashboard-section {
     padding-bottom: 4rem;
-    margin-top: -12rem;
+    margin-top: -10rem;
     /* Overlap hero */
     perspective: 1000px;
 }
@@ -495,6 +540,11 @@ body {
         width: 100%;
         justify-content: center;
         max-width: 300px;
+    }
+
+    .hero-left-bubble {
+        width: 300px;
+        left: -150px;
     }
 
     .mobile-menu-btn {
