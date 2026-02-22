@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Features.css';
 
 const Features = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.15 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     const featuresList = [
         {
             title: "Connect Your Banks",
@@ -40,7 +61,7 @@ const Features = () => {
             )
         },
         {
-            title: "Effortless Expense Tracking",
+            title: "Effortless Tracking",
             desc: "Snap a picture of your receipts and let our OCR technology automatically scan and categorize the expense to keep your accounts reconciled.",
             color: "#10b981", // Green
             visual: (
@@ -57,7 +78,7 @@ const Features = () => {
     ];
 
     return (
-        <section className="premium-features-section" id="features">
+        <section className="premium-features-section" id="features" ref={sectionRef}>
             <div className="premium-features-container">
                 <div className="features-intro">
                     <h5 className="features-label">Platform Capabilities</h5>
@@ -67,9 +88,12 @@ const Features = () => {
                     </p>
                 </div>
 
-                <div className="features-stacked-list">
+                <div className={`features-grid-layout ${isVisible ? 'in-view' : ''}`}>
                     {featuresList.map((feat, idx) => (
-                        <div key={idx} className={`feature-row ${idx % 2 !== 0 ? 'row-reverse' : ''}`}>
+                        <div key={idx} className="feature-card" style={{ '--stagger-idx': idx }}>
+                            <div className="feature-visual-block" style={{ '--accent': feat.color }}>
+                                {feat.visual}
+                            </div>
                             <div className="feature-text-block">
                                 <h3 className="feature-heading">{feat.title}</h3>
                                 <p className="feature-description">{feat.desc}</p>
@@ -77,9 +101,6 @@ const Features = () => {
                                     <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Automated workflows</li>
                                     <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Multi-user access</li>
                                 </ul>
-                            </div>
-                            <div className="feature-visual-block" style={{ '--accent': feat.color }}>
-                                {feat.visual}
                             </div>
                         </div>
                     ))}

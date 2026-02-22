@@ -1,6 +1,6 @@
 .services-section {
     background-color: #ffffff;
-    padding: 8rem 0;
+    padding: 4rem 0;
     font-family: 'Inter', system-ui, sans-serif;
 }
 
@@ -58,9 +58,16 @@
 }
 
 .service-card:hover {
-    border-color: #bfdbfe;
-    box-shadow: 0 20px 40px -12px rgba(0, 85, 255, 0.1);
+    border-color: transparent;
+    box-shadow: 0 20px 40px -12px rgba(236, 72, 153, 0.4);
     transform: translateY(-5px);
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+}
+
+.service-card:hover .service-title,
+.service-card:hover .service-desc,
+.service-card:hover .service-link {
+    color: #ffffff;
 }
 
 .service-icon-box {
@@ -77,8 +84,9 @@
 }
 
 .service-card:hover .service-icon-box {
-    background: #0055ff;
-    color: #ffffff;
+    background: #ffffff;
+    color: #0055ff;
+    /* Keeping the icon color the same */
 }
 
 .service-title {

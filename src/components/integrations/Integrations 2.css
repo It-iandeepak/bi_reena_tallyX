@@ -1,0 +1,171 @@
+.integrations-section {
+    padding: 6rem 0;
+    /* Outer padding matching the tailored-solutions section */
+    font-family: var(--font-main);
+    background-color: #ffffff;
+    /* Page background */
+}
+
+.integrations-box {
+    background: linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    max-width: 1190px;
+    margin: 0 auto;
+    border-radius: 24px;
+    /* Rounded corners for the box */
+}
+
+/* Grid Overlay inside the Box */
+.integrations-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-size: 120px 120px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    z-index: 1;
+}
+
+.integrations-container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    /* Inner padding for content */
+}
+
+.integration-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.integration-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.integration-desc {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+}
+
+/* Marquee setup */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+    display: flex;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 3rem;
+    padding-right: 3rem;
+    /* Same as gap, to ensure smooth wrap */
+    animation: scroll linear 15s infinite;
+    min-width: 100%;
+    justify-content: center;
+}
+
+.marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* App Item & Card */
+.app-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.app-card {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    color: #0f172a;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 1rem;
+}
+
+.app-item:hover .app-card {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.app-logo {
+    font-weight: 800;
+    font-size: 1.15rem;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.app-name {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.more-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: opacity 0.3s;
+}
+
+.more-link:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .integration-title {
+        font-size: 2.25rem;
+    }
+
+    .app-card {
+        width: 90px;
+        height: 90px;
+    }
+
+    .marquee-track {
+        gap: 2rem;
+        padding-right: 2rem;
+    }
+}

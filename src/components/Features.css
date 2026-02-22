@@ -43,40 +43,89 @@
     line-height: 1.7;
 }
 
-/* Row Layout */
-.features-stacked-list {
+/* Grid Layout */
+.features-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    perspective: 1000px;
+}
+
+.feature-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 8rem;
+    gap: 2rem;
+
+    /* Hover Effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+
+    /* Initial State */
+    opacity: 0.8;
+    transform: translateY(40px) scale(0.95);
+    /* Set will-change for GPU optimization */
+    will-change: transform, opacity;
 }
 
-.feature-row {
+.features-grid-layout.in-view .feature-card {
+    /* Final Layout State */
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    /* Animation config */
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--stagger-idx) * 0.1s);
+}
+
+.feature-card:hover {
+    transform: translateY(0) scale(1.05) !important;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.features-grid-layout.in-view .feature-card:hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition-delay: 0s;
+}
+
+/* Visual Abstract Block */
+.feature-visual-block {
+    flex: none;
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    height: 240px;
     display: flex;
     align-items: center;
-    gap: 6rem;
-}
-
-.feature-row.row-reverse {
-    flex-direction: row-reverse;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
 }
 
 .feature-text-block {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .feature-heading {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: #0f172a;
     line-height: 1.2;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .feature-description {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: #475569;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
 }
 
 .feature-bullets {
@@ -89,42 +138,27 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: #334155;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 500;
 }
 
 .feature-bullets svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
-}
-
-/* Visual Abstract Block */
-.feature-visual-block {
-    flex: 1;
-    position: relative;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, #f1f5f9 100%);
-    border: 1px solid #e2e8f0;
-    border-radius: 24px;
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
 }
 
 /* Creating an abstract pulse ring matching the designated color */
 .feature-visual-block::before {
     content: '';
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
-    opacity: 0.15;
-    filter: blur(40px);
+    opacity: 0.2;
+    filter: blur(30px);
     border-radius: 50%;
     z-index: 0;
 }
@@ -132,6 +166,8 @@
 .feature-mock-ui {
     position: relative;
     z-index: 10;
+    transform: scale(0.85);
+    /* Scale down UI slightly to fit better in grid */
 }
 
 /* Mini Mock UI styling */
@@ -273,26 +309,9 @@
 
 
 @media (max-width: 1024px) {
-    .features-stacked-list {
-        gap: 6rem;
-    }
-
-    .feature-row,
-    .feature-row.row-reverse {
-        flex-direction: column;
-        gap: 3rem;
-        text-align: center;
-    }
-
-    .feature-bullets {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    .feature-visual-block {
-        width: 100%;
+    .features-grid-layout {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
 }
 
@@ -305,12 +324,7 @@
         font-size: 2.25rem;
     }
 
-    .feature-heading {
-        font-size: 1.8rem;
-    }
-
-    .feature-bullets {
-        flex-direction: column;
-        align-items: center;
+    .features-grid-layout {
+        grid-template-columns: 1fr;
     }
 }
