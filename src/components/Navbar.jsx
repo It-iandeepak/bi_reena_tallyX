@@ -8,9 +8,7 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -26,7 +24,6 @@ const Navbar = () => {
 
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-            {/* Top Gradient Bar */}
             <div className="top-gradient-bar">
                 Powered by AI, Ringless Voicemails &amp; Marketing That Converts
             </div>
