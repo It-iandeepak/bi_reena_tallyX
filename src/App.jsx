@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import DashboardPreview from './components/DashboardPreview'
+import About from './components/About'
+import Services from './components/Services'
 import Features from './components/Features'
 import FullPageSlider from './components/FullPageSlider'
 import Pricing from './components/pricing/Pricing'
@@ -22,6 +24,8 @@ function App() {
             <main style={{ position: 'relative', zIndex: 1 }}>
                 <Hero />
                 <DashboardPreview />
+                <About />
+                <Services />
                 <Features />
                 <FullPageSlider />
                 <WhyChooseUs />
@@ -35,3 +39,5 @@ function App() {
         </div>
     )
 }
+
+export default App

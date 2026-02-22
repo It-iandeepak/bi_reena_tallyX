@@ -1,39 +1,86 @@
 import React from 'react';
-import { ShieldCheck, Receipt, Clock, Globe } from 'lucide-react';
+import './Features.css';
 
 const Features = () => {
-    const features = [
+    const featuresList = [
         {
-            icon: <ShieldCheck size={32} />,
-            title: "100% Tax Compliance",
-            desc: "Stay audit-ready with automated tax calculations and instant filing reports."
+            title: "Connect Your Banks",
+            desc: "Sync all your bank and credit card accounts securely. Transactions flow securely into the system, drastically reducing data entry and potential errors.",
+            color: "#3b82f6", // Blue
+            visual: (
+                <div className="feature-mock-ui">
+                    <div className="mock-card">
+                        <div className="mock-row flex gap-3">
+                            <div className="mock-avatar bg-blue-100"></div>
+                            <div className="mock-lines">
+                                <div className="mock-line w-24"></div>
+                                <div className="mock-line w-16 short"></div>
+                            </div>
+                            <div className="mock-badge text-green">+ $4,250.00</div>
+                        </div>
+                    </div>
+                </div>
+            )
         },
         {
-            icon: <Clock size={32} />,
-            title: "Real-time Tracking",
-            desc: "Monitor expenses and revenue streams as they happen, down to the second."
+            title: "Smart Invoicing",
+            desc: "Create professional invoices within seconds. Set up recurring profiles for repeat customers and implement automated payment reminders.",
+            color: "#8b5cf6", // Purple
+            visual: (
+                <div className="feature-mock-ui">
+                    <div className="mock-invoice">
+                        <div className="invoice-header"></div>
+                        <div className="invoice-body">
+                            <div className="invoice-item"></div>
+                            <div className="invoice-item"></div>
+                            <div className="invoice-total"></div>
+                        </div>
+                    </div>
+                </div>
+            )
         },
         {
-            icon: <Receipt size={32} />,
-            title: "Automated Invoicing",
-            desc: "Generate and send professional invoices automatically on recurring schedules."
-        },
-        {
-            icon: <Globe size={32} />,
-            title: "Multi-Currency",
-            desc: "Handle international transactions seamlessly with real-time exchange rates."
+            title: "Effortless Expense Tracking",
+            desc: "Snap a picture of your receipts and let our OCR technology automatically scan and categorize the expense to keep your accounts reconciled.",
+            color: "#10b981", // Green
+            visual: (
+                <div className="feature-mock-ui">
+                    <div className="mock-stats flex gap-2">
+                        <div className="stat-bar h-12"></div>
+                        <div className="stat-bar h-24"></div>
+                        <div className="stat-bar h-16"></div>
+                        <div className="stat-bar h-32 highlight"></div>
+                    </div>
+                </div>
+            )
         }
     ];
 
     return (
-        <section className="section features-section" id="features">
-            <div className="container">
-                <div className="grid-cols-4">
-                    {features.map((feature, index) => (
-                        <div key={index} className="feature-card">
-                            <div className="feature-icon">{feature.icon}</div>
-                            <h3 className="feature-title">{feature.title}</h3>
-                            <p className="feature-desc">{feature.desc}</p>
+        <section className="premium-features-section" id="features">
+            <div className="premium-features-container">
+                <div className="features-intro">
+                    <h5 className="features-label">Platform Capabilities</h5>
+                    <h2 className="features-main-title">Everything you need to manage your finances</h2>
+                    <p className="features-subtitle">
+                        Powerful automation algorithms working behind the scenes to keep your business fully synced.
+                    </p>
+                </div>
+
+                <div className="features-stacked-list">
+                    {featuresList.map((feat, idx) => (
+                        <div key={idx} className={`feature-row ${idx % 2 !== 0 ? 'row-reverse' : ''}`}>
+                            <div className="feature-text-block">
+                                <h3 className="feature-heading">{feat.title}</h3>
+                                <p className="feature-description">{feat.desc}</p>
+                                <ul className="feature-bullets">
+                                    <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Automated workflows</li>
+                                    <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Multi-user access</li>
+                                </ul>
+                            </div>
+                            <div className="feature-visual-block" style={{ '--accent': feat.color }}>
+                                {feat.visual}
+                            </div>
                         </div>
                     ))}
                 </div>
