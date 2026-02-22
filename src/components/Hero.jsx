@@ -10,6 +10,25 @@ const Hero = () => {
             <div className="blob blob-left"></div>
             <div className="blob blob-right"></div>
 
+            {/* Horizontal Floating Particles */}
+            <div className="hero-particles">
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+            </div>
+
             <div className="container hero-container relative">
                 <h1 className="hero-headline">
                     Simplifying Accounting <br />
