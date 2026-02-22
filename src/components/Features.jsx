@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Features.css';
+import smartInvoiceImg from '../assets/smart-invoice.png';
+import connectBanksImg from '../assets/connect-banks.png';
+import effortlessTrackingImg from '../assets/effort-tracking.png';
 
 const Features = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -29,17 +32,12 @@ const Features = () => {
             desc: "Sync all your bank and credit card accounts securely. Transactions flow securely into the system, drastically reducing data entry and potential errors.",
             color: "#3b82f6", // Blue
             visual: (
-                <div className="feature-mock-ui">
-                    <div className="mock-card">
-                        <div className="mock-row flex gap-3">
-                            <div className="mock-avatar bg-blue-100"></div>
-                            <div className="mock-lines">
-                                <div className="mock-line w-24"></div>
-                                <div className="mock-line w-16 short"></div>
-                            </div>
-                            <div className="mock-badge text-green">+ $4,250.00</div>
-                        </div>
-                    </div>
+                <div className="feature-mock-ui feature-image-ui">
+                    <img
+                        src={connectBanksImg}
+                        alt="Connect Your Banks"
+                        className="feature-invoice-img"
+                    />
                 </div>
             )
         },
@@ -48,15 +46,12 @@ const Features = () => {
             desc: "Create professional invoices within seconds. Set up recurring profiles for repeat customers and implement automated payment reminders.",
             color: "#8b5cf6", // Purple
             visual: (
-                <div className="feature-mock-ui">
-                    <div className="mock-invoice">
-                        <div className="invoice-header"></div>
-                        <div className="invoice-body">
-                            <div className="invoice-item"></div>
-                            <div className="invoice-item"></div>
-                            <div className="invoice-total"></div>
-                        </div>
-                    </div>
+                <div className="feature-mock-ui feature-image-ui">
+                    <img
+                        src={smartInvoiceImg}
+                        alt="Smart Invoicing"
+                        className="feature-invoice-img"
+                    />
                 </div>
             )
         },
@@ -65,13 +60,12 @@ const Features = () => {
             desc: "Snap a picture of your receipts and let our OCR technology automatically scan and categorize the expense to keep your accounts reconciled.",
             color: "#10b981", // Green
             visual: (
-                <div className="feature-mock-ui">
-                    <div className="mock-stats flex gap-2">
-                        <div className="stat-bar h-12"></div>
-                        <div className="stat-bar h-24"></div>
-                        <div className="stat-bar h-16"></div>
-                        <div className="stat-bar h-32 highlight"></div>
-                    </div>
+                <div className="feature-mock-ui feature-image-ui">
+                    <img
+                        src={effortlessTrackingImg}
+                        alt="Effortless Tracking"
+                        className="feature-invoice-img"
+                    />
                 </div>
             )
         }
