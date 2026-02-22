@@ -1,0 +1,138 @@
+.wcu-modern-section {
+    padding: 6rem 0;
+    background-color: #f8fafc;
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.wcu-modern-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+.wcu-modern-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 4rem;
+}
+
+.wcu-hex-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.wcu-hex-card {
+    width: 250px;
+    height: 290px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.wcu-hex-card:hover {
+    transform: translateY(-8px);
+}
+
+.card-orange {
+    background: linear-gradient(135deg, #fb923c 0%, #ef4444 100%);
+}
+
+.card-blue {
+    background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+}
+
+.card-purple {
+    background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+}
+
+.card-indigo {
+    background: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+}
+
+.wcu-hex-icon {
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wcu-hex-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.wcu-hex-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.wcu-bottom-features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.wcu-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.text-pink {
+    color: #ec4899;
+}
+
+.text-blue {
+    color: #3b82f6;
+}
+
+.text-orange {
+    color: #f97316;
+}
+
+.text-purple {
+    color: #8b5cf6;
+}
+
+@media (max-width: 1024px) {
+    .wcu-hex-grid {
+        gap: 1rem;
+    }
+
+    .wcu-hex-card {
+        width: 220px;
+        height: 255px;
+    }
+}
+
+@media (max-width: 768px) {
+    .wcu-modern-title {
+        font-size: 2rem;
+    }
+
+    .wcu-bottom-features {
+        gap: 1.5rem;
+        flex-direction: column;
+    }
+}
