@@ -5,6 +5,22 @@ import { Settings, BarChart3, ShieldCheck, Globe, FileCheck, Calculator, Users, 
 const WhyChooseUs = () => {
     return (
         <section className="wcu-modern-section">
+            {/* Right-to-Left Floating Particles */}
+            <div className="wcu-particles">
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+            </div>
+
             <div className="wcu-modern-container">
                 <h2 className="wcu-modern-title">Why Choose Us is Unbeatable</h2>
 

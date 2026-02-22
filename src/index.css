@@ -170,6 +170,14 @@ button {
     /* Subtle Blue Text Glow */
 }
 
+/* Active route highlight */
+.nav-links a.active-nav-link {
+    color: #6366f1;
+    font-weight: 700;
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 2px;
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
