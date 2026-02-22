@@ -3,13 +3,8 @@ import Layout from '../components/Layout';
 import Services from '../components/Services';
 import TailoredSolutions from '../components/tailored-solutions/TailoredSolutions';
 
-const ServicesPage = () => {
-    return (
-        <Layout>
-            <Services />
-            <TailoredSolutions />
-        </Layout>
-    );
-};
+const ServicesPage = () => (
+    <Layout><Services /><TailoredSolutions /></Layout>
+);
 
 export default ServicesPage;

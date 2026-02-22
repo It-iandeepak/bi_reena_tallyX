@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css';
+import aboutImg from '../assets/about-fintech.png';
 
 const About = () => {
     return (
@@ -38,9 +39,11 @@ const About = () => {
                     {/* Right Visual Side */}
                     <div className="about-visual">
                         <div className="about-image-wrapper">
-                            {/* Abstract decorative aesthetic common in Enterprise Software */}
-                            <div className="creative-shape shape-1"></div>
-                            <div className="creative-shape shape-2"></div>
+                            <img
+                                src={aboutImg}
+                                alt="Bineera Tallyx Fintech Platform"
+                                className="about-main-img"
+                            />
 
                             <div className="about-feature-box top-box">
                                 <div className="box-icon">
