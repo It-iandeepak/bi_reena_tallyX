@@ -1,0 +1,242 @@
+.about-section {
+    background-color: #fafafa;
+    /* Very light slate-gray similar to Zoho/Mocha backgrounds */
+    padding: 8rem 0;
+    position: relative;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+}
+
+.about-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.about-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+/* Left Content Styles */
+.about-label {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #0055ff;
+    /* Primary Brand Blue */
+    margin-bottom: 1rem;
+}
+
+.about-headline {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.highlight-text {
+    position: relative;
+    color: #0055ff;
+}
+
+.about-description {
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* Stats Container */
+.about-stats-container {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.about-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.2rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Right Visual Styles */
+.about-visual {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Zoho/Mocha Modern Soft Graphics */
+.about-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.creative-shape {
+    position: absolute;
+    border-radius: 32px;
+}
+
+.shape-1 {
+    width: 75%;
+    height: 80%;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbecfe 100%);
+    top: 10%;
+    right: 5%;
+    z-index: 1;
+    transform: rotate(3deg);
+    border: 1px solid #bfdbfe;
+}
+
+.shape-2 {
+    width: 65%;
+    height: 70%;
+    background: #0055ff;
+    bottom: 5%;
+    left: 5%;
+    z-index: 2;
+    transform: rotate(-3deg);
+    box-shadow: 0 25px 50px -12px rgba(0, 85, 255, 0.4);
+}
+
+/* Floating info boxes */
+.about-feature-box {
+    position: absolute;
+    background: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 3;
+    border: 1px solid #f1f5f9;
+}
+
+.top-box {
+    top: 5%;
+    left: -5%;
+    animation: float 4s ease-in-out infinite;
+}
+
+.bottom-box {
+    bottom: 15%;
+    right: -10%;
+    animation: float 5s ease-in-out infinite reverse;
+}
+
+.box-icon {
+    width: 44px;
+    height: 44px;
+    background: #f8fafc;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.2rem 0;
+}
+
+.box-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Responsive Rules */
+@media (max-width: 1024px) {
+    .about-grid-layout {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+
+    .about-label,
+    .about-headline,
+    .about-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-stats-container {
+        justify-content: center;
+    }
+
+    .top-box {
+        left: 5%;
+    }
+
+    .bottom-box {
+        right: 5%;
+    }
+}
+
+@media (max-width: 640px) {
+    .about-section {
+        padding: 5rem 0;
+    }
+
+    .about-headline {
+        font-size: 2.25rem;
+    }
+
+    .about-stats-container {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .about-visual {
+        height: 350px;
+        margin-top: 2rem;
+    }
+
+    .top-box,
+    .bottom-box {
+        padding: 1rem;
+    }
+}

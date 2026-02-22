@@ -16,7 +16,9 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             {/* Top Gradient Bar from VMSlide */}
-            <div className="top-gradient-bar"></div>
+            <div className="top-gradient-bar">
+                Powered by AI, Ringless Voicemails &amp; Marketing That Converts
+            </div>
 
             <div className="container navbar-container">
                 <div className="logo-section">
