@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import DashboardPreview from '../components/DashboardPreview';
-import About from '../components/About';
 import Services from '../components/Services';
 import Features from '../components/Features';
 import FullPageSlider from '../components/FullPageSlider';
@@ -17,7 +16,6 @@ const HomePage = () => {
         <Layout>
             <Hero />
             <DashboardPreview />
-            <About />
             <Services />
             <Features />
             <FullPageSlider />
