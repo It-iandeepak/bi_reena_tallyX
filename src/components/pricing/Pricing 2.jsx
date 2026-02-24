@@ -101,7 +101,7 @@ const Pricing = () => {
                                     </div>
                                 </div>
 
-                                <button className="trial-btn">Start my free trial</button>
+                                <button className="trial-btn">Apply</button>
                             </div>
                         </div>
                     ))}

@@ -34,9 +34,15 @@
 .pricing-title {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #1e3a8a;
     line-height: 1.1;
     margin: 0;
+}
+.gradient-text {
+  background: linear-gradient(90deg, #3b82f6 0%, #ec4899 50%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .pricing-controls {
@@ -64,10 +70,6 @@
 .country-name {
     font-size: 1rem;
     color: #1e3a8a;
-}
-
-.country-chevron {
-    color: #6b7280;
 }
 
 .billing-toggle {
@@ -294,7 +296,7 @@
 
 .trial-btn {
     width: 100%;
-    background: #3b82f6;
+    background: #1E5BE6;
     color: #ffffff;
     border: none;
     padding: 0.85rem;
@@ -310,14 +312,6 @@
     transform: translateY(-2px);
 }
 
-.pricing-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
-    padding: 1rem 0;
-    border-top: 1px solid #e5e7eb;
-}
 
 .explore-plans-link {
     font-weight: 700;
