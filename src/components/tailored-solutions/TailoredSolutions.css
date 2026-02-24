@@ -43,7 +43,7 @@
 .tailored-card {
     border: 2px solid transparent;
     background:
-        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(#f26f04, #f893c5ea) padding-box,
         linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%) border-box;
     /* Subtle orange tint fallback */
 

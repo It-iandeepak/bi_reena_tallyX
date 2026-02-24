@@ -47,7 +47,8 @@
 }
 
 .service-card {
-    background: #ffffff;
+    background: linear-gradient(60deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 2.5rem 2rem;
@@ -57,7 +58,7 @@
     align-items: flex-start;
 }
 
-.service-card:hover {
+/* .service-card:hover {
     border-color: transparent;
     box-shadow: 0 20px 40px -12px rgba(236, 72, 153, 0.4);
     transform: translateY(-5px);
@@ -68,7 +69,7 @@
 .service-card:hover .service-desc,
 .service-card:hover .service-link {
     color: #ffffff;
-}
+} */
 
 .service-icon-box {
     width: 60px;

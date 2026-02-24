@@ -91,10 +91,6 @@ const Features = () => {
                             <div className="feature-text-block">
                                 <h3 className="feature-heading">{feat.title}</h3>
                                 <p className="feature-description">{feat.desc}</p>
-                                <ul className="feature-bullets">
-                                    <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Automated workflows</li>
-                                    <li><svg viewBox="0 0 24 24" fill="none" stroke={feat.color} strokeWidth="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Multi-user access</li>
-                                </ul>
                             </div>
                         </div>
                     ))}

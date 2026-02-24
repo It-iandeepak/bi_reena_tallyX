@@ -49,14 +49,16 @@ const Pricing = () => {
                 <div className="pricing-header">
                     <div className="pricing-header-left">
                         <span className="pricing-label">PRICING</span>
-                        <h2 className="pricing-title">The perfect balance of<br />features and affordability</h2>
+                        <h2 className="pricing-title">
+                            <span class= "gradient-text">The perfect balance of<br />features and affordability</span>
+                            </h2>
                     </div>
                 </div>
 
                 <div className="pricing-controls">
                     <div className="country-selector">
                         <span className="country-name">India</span>
-                        <ChevronDown size={16} className="country-chevron" />
+                       
                     </div>
 
                     <div className="billing-toggle">
@@ -74,7 +76,7 @@ const Pricing = () => {
                 </div>                <div className="free-plan-banner">
                     <div className="free-plan-content">
                         <span className="free-plan-title">Free Plan</span>
-                        <span className="free-plan-desc">Free accounting software for small businesses</span>
+                        <span className="free-plan-desc"></span>
                     </div>
                 </div>
 
@@ -101,16 +103,12 @@ const Pricing = () => {
                                     </div>
                                 </div>
 
-                                <button className="trial-btn">Start my free trial</button>
+                                <button className="trial-btn">Apply</button>
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="pricing-footer">
-                    <a href="#explore" className="explore-plans-link">Explore all plans</a>
-                    <div className="tax-notice">*Prices are exclusive of local taxes.</div>
-                </div>
             </div>
         </section>
     );

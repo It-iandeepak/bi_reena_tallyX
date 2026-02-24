@@ -54,12 +54,12 @@
     font-weight: 500;
 }
 
-.country-flag {
+/* .country-flag {
     width: 24px;
     height: 16px;
     object-fit: cover;
     border-radius: 2px;
-}
+} */
 
 .country-name {
     font-size: 1rem;
@@ -294,7 +294,8 @@
 
 .trial-btn {
     width: 100%;
-    background: #3b82f6;
+    /* You can change the button color here */
+    background: #1E5BE6;
     color: #ffffff;
     border: none;
     padding: 0.85rem;
