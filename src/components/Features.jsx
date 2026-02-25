@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import './Features.css';
 import smartInvoiceImg from '../assets/smart-invoice.png';
 import connectBanksImg from '../assets/connect-banks.png';
@@ -30,44 +31,20 @@ const Features = () => {
         {
             title: "Connect Your Banks",
             desc: "Sync all your bank and credit card accounts securely. Transactions flow securely into the system, drastically reducing data entry and potential errors.",
-            color: "#3b82f6", // Blue
-            visual: (
-                <div className="feature-mock-ui feature-image-ui">
-                    <img
-                        src={connectBanksImg}
-                        alt="Connect Your Banks"
-                        className="feature-invoice-img"
-                    />
-                </div>
-            )
+            accent: "feat-accent-orange",
+            image: connectBanksImg
         },
         {
             title: "Smart Invoicing",
             desc: "Create professional invoices within seconds. Set up recurring profiles for repeat customers and implement automated payment reminders.",
-            color: "#8b5cf6", // Purple
-            visual: (
-                <div className="feature-mock-ui feature-image-ui">
-                    <img
-                        src={smartInvoiceImg}
-                        alt="Smart Invoicing"
-                        className="feature-invoice-img"
-                    />
-                </div>
-            )
+            accent: "feat-accent-pink",
+            image: smartInvoiceImg
         },
         {
             title: "Effortless Tracking",
             desc: "Snap a picture of your receipts and let our OCR technology automatically scan and categorize the expense to keep your accounts reconciled.",
-            color: "#10b981", // Green
-            visual: (
-                <div className="feature-mock-ui feature-image-ui">
-                    <img
-                        src={effortlessTrackingImg}
-                        alt="Effortless Tracking"
-                        className="feature-invoice-img"
-                    />
-                </div>
-            )
+            accent: "feat-accent-purple",
+            image: effortlessTrackingImg
         }
     ];
 
@@ -75,8 +52,11 @@ const Features = () => {
         <section className="premium-features-section" id="features" ref={sectionRef}>
             <div className="premium-features-container">
                 <div className="features-intro">
-                    <h5 className="features-label">Platform Capabilities</h5>
-                    <h2 className="features-main-title">Everything you need to manage your finances</h2>
+                    <span className="features-label">Platform Capabilities</span>
+                    <h2 className="features-main-title">
+                        Everything you need to manage your{' '}
+                        <span className="features-title-gradient">finances</span>
+                    </h2>
                     <p className="features-subtitle">
                         Powerful automation algorithms working behind the scenes to keep your business fully synced.
                     </p>
@@ -84,13 +64,27 @@ const Features = () => {
 
                 <div className={`features-grid-layout ${isVisible ? 'in-view' : ''}`}>
                     {featuresList.map((feat, idx) => (
-                        <div key={idx} className="feature-card" style={{ '--stagger-idx': idx }}>
-                            <div className="feature-visual-block" style={{ '--accent': feat.color }}>
-                                {feat.visual}
+                        <div key={idx} className={`feature-card ${feat.accent}`} style={{ '--stagger-idx': idx }}>
+                            {/* Decorative top glow */}
+                            <div className="feat-card-glow"></div>
+
+                            <div className="feature-visual-block">
+                                <div className="feature-mock-ui feature-image-ui">
+                                    <img
+                                        src={feat.image}
+                                        alt={feat.title}
+                                        className="feature-invoice-img"
+                                    />
+                                </div>
                             </div>
+
                             <div className="feature-text-block">
                                 <h3 className="feature-heading">{feat.title}</h3>
                                 <p className="feature-description">{feat.desc}</p>
+                                <a href="#" className="feat-learn-btn">
+                                    <span>Learn More</span>
+                                    <ArrowRight size={15} className="feat-btn-arrow" />
+                                </a>
                             </div>
                         </div>
                     ))}
