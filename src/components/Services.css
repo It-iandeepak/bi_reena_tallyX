@@ -47,15 +47,40 @@
 }
 
 .service-card {
-    background: linear-gradient(60deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
-
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2.5rem 2rem;
-    transition: all 0.3s ease;
+    background: 0 10px 36px rgba(0, 0, 50, 0.12);;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+/* Subtle premium top highlight for the cards */
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
+.service-card:hover::before {
+    opacity: 1;
 }
 
 .service-icon-box {
@@ -98,15 +123,41 @@
 .service-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #0055ff;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ef4444 0%, #e11d48 100%);
+    padding: 0.8rem 1.8rem;
+    border-radius: 9999px;
+    /* Pill shaped button */
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     margin-top: auto;
-    margin-left: 6.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px -5px rgba(225, 29, 72, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.01em;
+    align-self: center;
+    /* Center the button within the card */
+    width: fit-content;
+}
+
+.service-link::after {
+    content: '→';
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
 }
 
 .service-link:hover {
-    color: #0044cc;
+    color: #ffffff;
+    background: linear-gradient(135deg, #dc2626 0%, #be123c 100%);
+    box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.5);
+    transform: translateY(-2px);
+}
+
+.service-link:hover::after {
+    transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {
