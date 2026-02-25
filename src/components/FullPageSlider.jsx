@@ -38,47 +38,20 @@ const sections = [
 ];
 
 const FullPageSlider = () => {
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    } else {
-                        // Remove the class when out of view to re-trigger the animation on re-entry
-                        entry.target.classList.remove('is-visible');
-                    }
-                });
-            },
-            {
-                threshold: 0.4, // Trigger when 40% of the element is visible
-            }
-        );
-
-        const elements = document.querySelectorAll('.slider-content');
-        elements.forEach((el) => observer.observe(el));
-
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
+    // Duplicate sections for seamless infinite loop (exactly 2 copies for -50% translation)
+    const carouselItems = [...sections, ...sections];
 
     return (
         <div className="slider-page-wrapper">
-            <div className="slider-container" ref={containerRef}>
-                {sections.map((section) => (
-                    <section
-                        key={section.id}
-                        className="slider-section"
-                    >
+            <div className="slider-infinite-track">
+                {carouselItems.map((section, index) => (
+                    <div key={`${section.id}-${index}`} className="slider-infinite-item">
                         <img
                             src={section.image}
                             alt={section.title}
-                            className="slider-image"
+                            className="slider-infinite-img"
                         />
-                    </section>
+                    </div>
                 ))}
             </div>
         </div>
