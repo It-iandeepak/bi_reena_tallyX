@@ -60,7 +60,7 @@ const Services = () => {
                             <div className="service-icon-box">{service.icon}</div>
                             <h3 className="service-title">{service.title}</h3>
                             <p className="service-desc">{service.desc}</p>
-                            <a href="#contact" className="service-link">Learn more &rarr;</a>
+                            <a href="#contact" className="service-link">Learn more</a>
                         </div>
                     ))}
                 </div>

@@ -546,7 +546,8 @@ button {
     margin-top: -10rem;
     /* Overlap hero */
     perspective: 1000px;
-    background: linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    background: transparent;
+    /* Removed linear gradient */
     padding-top: 4rem;
     padding-left: 2rem;
     padding-right: 2rem;
