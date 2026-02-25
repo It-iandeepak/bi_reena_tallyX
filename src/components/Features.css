@@ -126,6 +126,7 @@
     line-height: 1.6;
     margin-bottom: 1.5rem;
     flex-grow: 1;
+    text-align: justify;
 }
 
 

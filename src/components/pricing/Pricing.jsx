@@ -50,15 +50,15 @@ const Pricing = () => {
                     <div className="pricing-header-left">
                         <span className="pricing-label">PRICING</span>
                         <h2 className="pricing-title">
-                            <span class= "gradient-text">The perfect balance of<br />features and affordability</span>
-                            </h2>
+                            <span class="gradient-text">The perfect balance of<br />features and affordability</span>
+                        </h2>
                     </div>
                 </div>
 
                 <div className="pricing-controls">
                     <div className="country-selector">
                         <span className="country-name">India</span>
-                       
+
                     </div>
 
                     <div className="billing-toggle">
