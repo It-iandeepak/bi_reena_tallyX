@@ -1,24 +1,24 @@
 import React from 'react';
 import './WhyChooseUs.css';
 import { Settings, BarChart3, ShieldCheck, Globe, FileCheck, Calculator, Users, Smartphone } from 'lucide-react';
-import dashImg from '../../assets/2-1-1.png';
-
-// 4 images duplicated for seamless infinite loop
-const carouselImages = [dashImg, dashImg, dashImg, dashImg, dashImg, dashImg, dashImg, dashImg];
 
 const WhyChooseUs = () => {
     return (
         <section className="wcu-modern-section">
-
-            {/* Infinite Scroll Carousel Strip */}
-            <div className="wcu-carousel-outer">
-                <div className="wcu-carousel-track">
-                    {carouselImages.map((img, idx) => (
-                        <div key={idx} className="wcu-carousel-item">
-                            <img src={img} alt={`Dashboard Preview ${(idx % 4) + 1}`} className="wcu-carousel-img" />
-                        </div>
-                    ))}
-                </div>
+            {/* Right-to-Left Floating Particles */}
+            <div className="wcu-particles">
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
+                <span className="shape-circle"></span>
+                <span className="shape-square"></span>
+                <span className="shape-triangle"></span>
             </div>
 
             <div className="wcu-modern-container">

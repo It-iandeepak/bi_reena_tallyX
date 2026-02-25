@@ -1,71 +1,60 @@
-.fslider-wrapper {
-    width: 100%;
-    background: #eaf1f1;
-    padding: 2.5rem 0;
+.slider-page-wrapper {
+    width: 100vw;
+    background-color: #eaf1f1;
+    /* Matched the light cyan-gray from the first image */
+    padding: 0rem 0;
+    /* Padding top/bottom */
     position: relative;
     overflow: hidden;
 }
 
-/* Sliding track */
-.fslider-track {
+.slider-container {
+    height: 60vh;
+    /* Reduced height as requested */
+    min-height: 200px;
+    max-height: 600px;
+    width: 100%;
     display: flex;
-    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    gap: 4rem;
+    /* Wider gap to match the reference */
+    padding: 2rem 10vw;
+    /* 10vw on each side centers an 80vw item */
+    box-sizing: border-box;
+
+    /* Hide scrollbar for a seamless Apple-like look */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-/* Each slide */
-.fslider-slide {
-    flex: 0 0 100%;
-    width: 100%;
+.slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-section {
+    flex: 0 0 auto;
+    /* Let the image dictate the exact balanced aspect ratio width */
+    height: 101%;
+    scroll-snap-align: center;
+    position: relative;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* Lighter, more elegant shadow */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 12vw;
-    box-sizing: border-box;
+    background-color: transparent;
+    /* No unmatching background color */
 }
 
-/* Smaller, uniform image */
-.fslider-img {
-    width: 100%;
-    max-width: 780px;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 18px;
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.10);
+.slider-image {
+    height: 133%;
+    width: auto;
+    /* Balances perfectly without stretching or cropping */
+    border-radius: 24px;
     display: block;
-}
-
-/* Dots */
-.fslider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.25rem;
-}
-
-.fslider-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.3s, transform 0.3s;
-}
-
-.fslider-dot.active {
-    background: #0055FF;
-    transform: scale(1.45);
-}
-
-@media (max-width: 768px) {
-    .fslider-img {
-        height: 210px;
-        max-width: 100%;
-    }
-
-    .fslider-slide {
-        padding: 0 5vw;
-    }
+    object-fit: contain;
 }
