@@ -33,7 +33,8 @@
     height: 60vh;
     min-height: 280px;
     max-height: 580px;
-    width: auto;
+    aspect-ratio: 16 / 8.5;
+    /* Wider aspect ratio crops the bottom white space */
     display: block;
     border-radius: 20px;
     object-fit: cover;

@@ -29,7 +29,7 @@ const Features = () => {
     const featuresList = [
         {
             title: "Connect Your Banks",
-            desc: "Sync all your bank and credit card accounts securely. Transactions flow securely into the system, drastically reducing data entry and potential errors.",
+            desc: "Sync all your bank and credit card accounts securely. Transactions flow securely into the system, reducing data entry and potential errors.",
             color: "#3b82f6", // Blue
             visual: (
                 <div className="feature-mock-ui feature-image-ui">
@@ -84,8 +84,8 @@ const Features = () => {
 
                 <div className={`features-grid-layout ${isVisible ? 'in-view' : ''}`}>
                     {featuresList.map((feat, idx) => (
-                        <div key={idx} className="feature-card" style={{ '--stagger-idx': idx }}>
-                            <div className="feature-visual-block" style={{ '--accent': feat.color }}>
+                        <div key={idx} className="feature-card" style={{ '--stagger-idx': idx, '--accent': feat.color }}>
+                            <div className="feature-visual-block">
                                 {feat.visual}
                             </div>
                             <div className="feature-text-block">
