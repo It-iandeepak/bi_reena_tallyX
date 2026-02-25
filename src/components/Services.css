@@ -47,17 +47,21 @@
 }
 
 .service-card {
-    background: 0 10px 36px rgba(0, 0, 50, 0.12);;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%) border-box;
+    border: 2px solid transparent;
     border-radius: 16px;
     padding: 3rem 2.5rem;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
+    /* Softer base shadow */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    height: 100%;
+    /* Ensures all flex items stretch evenly in the grid */
 }
 
 /* Subtle premium top highlight for the cards */
@@ -68,15 +72,15 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+    background: linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: 0 20px 40px -10px rgba(236, 72, 153, 0.25);
+    /* Pinkish glow from gradient */
 }
 
 .service-card:hover::before {
@@ -87,7 +91,8 @@
     width: 60px;
     height: 60px;
     background: #f8fafc;
-    color: #0055ff;
+    color: #ec4899;
+    /* Permanent pink color */
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -98,9 +103,7 @@
 }
 
 .service-card:hover .service-icon-box {
-    background: #ffffff;
-    color: #0055ff;
-    /* Keeping the icon color the same */
+    transform: scale(1.1);
 }
 
 .service-title {

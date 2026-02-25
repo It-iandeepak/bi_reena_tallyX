@@ -1,85 +1,98 @@
 import React from 'react';
-import { Facebook, Instagram, Linkedin, Youtube, ArrowRight } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Youtube, ArrowRight, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
+import './Footer.css';
 
 const Footer = () => {
     return (
-        <footer className="footer-modern-section">
-            <div className="footer-modern-container">
-                <div className="footer-modern-card">
+        <footer className="ft-section">
+            <div className="ft-container">
 
-                    {/* Top Section */}
-                    <div className="footer-modern-top">
-                        {/* Logo Block (Cutout style area) */}
-                        <div className="footer-modern-logo-block">
-                            <div className="footer-logo-content">
-                                <div className="logo-icon-modern">B</div>
-                                <div className="logo-text-modern">BiReenaTellyX</div>
-                            </div>
-                            <p className="footer-tagline-modern">Simple. Secure. Tailored.</p>
+                {/* ── Top: Logo + Nav + Social ── */}
+                <div className="ft-top">
+                    <div className="ft-brand">
+                        <div className="ft-logo-row">
+                            <div className="ft-logo-icon">B</div>
+                            <span className="ft-logo-name">BiReenaTellyX</span>
                         </div>
-
-                        {/* Links Block */}
-                        <div className="footer-modern-links">
-                            <div className="footer-nav-col">
-                                <h3>Product</h3>
-                                <ul>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Features</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Pricing</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Blogs</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Tally Alternative</a></li>
-                                </ul>
-                            </div>
-
-                            <div className="footer-nav-col">
-                                <h3>Company</h3>
-                                <ul>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> About</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Vision</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Our Values</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Contact Us</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Careers</a></li>
-                                </ul>
-                            </div>
-
-                            <div className="footer-nav-col">
-                                <h3>Support</h3>
-                                <ul>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Getting Started</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Help Center</a></li>
-                                    <li><a href="#"><ArrowRight size={14} className="link-arrow" /> Request Support</a></li>
-                                </ul>
-                            </div>
-
-                            {/* Social Icons rightmost aligned as in image */}
-                            <div className="footer-modern-social">
-                                <a href="https://www.facebook.com/people/Bireena-Bireena/61572904348705/" target="_blank" rel="noopener noreferrer"><Facebook size={18} /></a>
-                                <a href="https://www.instagram.com/bireenainfo/" target="_blank" rel="noopener noreferrer"><Instagram size={18} /></a>
-                                <a href="https://www.linkedin.com/in/bireena-info-tech-a975533a1/" target="_blank" rel="noopener noreferrer"><Linkedin size={18} /></a>
-                                <a href="https://www.youtube.com/@bireenainfotech" target="_blank" rel="noopener noreferrer"><Youtube size={18} /></a>
-                            </div>
+                        <p className="ft-tagline">Simple. Secure. Tailored.</p>
+                        <div className="ft-social-row">
+                            <a href="https://www.facebook.com/people/Bireena-Bireena/61572904348705/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={16} /></a>
+                            <a href="https://www.instagram.com/bireenainfo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
+                            <a href="https://www.linkedin.com/in/bireena-info-tech-a975533a1/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
+                            <a href="https://www.youtube.com/@bireenainfotech" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Youtube size={16} /></a>
                         </div>
                     </div>
 
-                    {/* Middle Section (Big Callout Text) */}
-                    <div className="footer-modern-middle">
-                        <h2 className="footer-callout-text">
+                    <div className="ft-nav-cols">
+                        <div className="ft-nav-col">
+                            <h4>Product</h4>
+                            <ul>
+                                <li><a href="#">Features</a></li>
+                                <li><a href="#">Pricing</a></li>
+                                <li><a href="#">Blogs</a></li>
+                                <li><a href="#">Tally Alternative</a></li>
+                            </ul>
+                        </div>
+                        <div className="ft-nav-col">
+                            <h4>Company</h4>
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Vision</a></li>
+                                <li><a href="#">Our Values</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">Careers</a></li>
+                            </ul>
+                        </div>
+                        <div className="ft-nav-col">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Getting Started</a></li>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">Request Support</a></li>
+                            </ul>
+                        </div>
+                        <div className="ft-nav-col">
+                            <h4>Contact</h4>
+                            <ul>
+                                <li className="ft-contact-item">
+                                    <Phone size={14} className="ft-contact-icon" />
+                                    <span>+91 91351-55931</span>
+                                </li>
+                                <li className="ft-contact-item">
+                                    <Mail size={14} className="ft-contact-icon" />
+                                    <span>support@bireenatallyx.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── CTA Banner ── */}
+                <div className="ft-cta-banner">
+                    <div className="ft-cta-content">
+                        <Sparkles size={18} className="ft-cta-sparkle" />
+                        <h2 className="ft-cta-text">
                             Cost-Effective, Customizable, Streamlined, Accounting Software.
                         </h2>
-                        <button className="footer-demo-button">Book a Demo</button>
                     </div>
-
-                    {/* Bottom Section */}
-                    <div className="footer-modern-bottom">
-                        <div className="footer-modern-copyright">
-                            Copyright &copy; 2026 Bireena Info Tech | All Rights Reserved | Terms and Conditions | Privacy Policy
-                        </div>
-                        <div className="footer-modern-contact">
-                            Contact: +91 91351-55931<br />
-                            Email: support@bireenatallyx.com
-                        </div>
-                    </div>
-
+                    <button className="ft-cta-btn">
+                        <span>Book a Demo</span>
+                        <ArrowRight size={16} className="ft-cta-arrow" />
+                    </button>
                 </div>
+
+                {/* ── Bottom Bar ── */}
+                <div className="ft-bottom">
+                    <p className="ft-copyright">
+                        Copyright &copy; 2026 Bireena Info Tech | All Rights Reserved
+                    </p>
+                    <div className="ft-bottom-links">
+                        <a href="#">Terms and Conditions</a>
+                        <span className="ft-dot">•</span>
+                        <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+
             </div>
         </footer>
     );
