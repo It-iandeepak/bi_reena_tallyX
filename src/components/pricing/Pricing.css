@@ -37,12 +37,13 @@
     line-height: 1.1;
     margin: 0;
 }
+
 .gradient-text {
-  background: linear-gradient(90deg, #3b82f6 0%, #ec4899 50%, #22c55e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+    background: linear-gradient(90deg, #3b82f6 0%, #ec4899 50%, #22c55e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .pricing-controls {
