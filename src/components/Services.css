@@ -47,8 +47,8 @@
 }
 
 .service-card {
-    background: 0 10px 36px rgba(0, 0, 50, 0.12);;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(90deg, #fcae7a 0%, #f38bbf 50%, #a98cff 100%);
+    border: 1px solid #f3d1ff;
     border-radius: 16px;
     padding: 3rem 2.5rem;
     position: relative;
@@ -86,7 +86,7 @@
 .service-icon-box {
     width: 60px;
     height: 60px;
-    background: #f8fafc;
+    background: #fcf8fb;
     color: #0055ff;
     border-radius: 16px;
     display: flex;
@@ -106,7 +106,7 @@
 .service-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0055ff;
+    color: #0f172a;
     margin-bottom: 1rem;
 }
 
