@@ -4,7 +4,7 @@ import Footer from './Footer';
 import PreFooter from './prefooter/PreFooter';
 import CustomCursor from './CustomCursor';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, hidePreFooter }) => {
     return (
         <div style={{ position: 'relative', overflow: 'hidden' }}>
             <CustomCursor />
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
             <main style={{ position: 'relative', zIndex: 1 }}>
                 {children}
             </main>
-            <PreFooter />
+            {!hidePreFooter && <PreFooter />}
             <Footer />
         </div>
     );

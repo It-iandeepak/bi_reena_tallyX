@@ -16,11 +16,11 @@ const HomePage = () => {
         <Layout>
             <Hero />
             <DashboardPreview />
+            <WhyChooseUs />
             <Services />
             <Features />
             <FullPageSlider />
-            <WhyChooseUs />
-            <Pricing />
+            <Pricing compact={true} />
             <TailoredSolutions />
             <Integrations />
             <FAQ />

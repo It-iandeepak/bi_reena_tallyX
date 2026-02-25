@@ -1,68 +1,88 @@
 import React from 'react';
 import './WhyChooseUs.css';
-import { Settings, BarChart3, ShieldCheck, Globe, FileCheck, Calculator, Users, Smartphone } from 'lucide-react';
+import {
+    Settings, BarChart3, ShieldCheck, Globe,
+    FileCheck, Calculator, Users, Smartphone, ArrowRight, Sparkles
+} from 'lucide-react';
 
 const WhyChooseUs = () => {
+    const mainCards = [
+        {
+            icon: <Settings size={26} />,
+            title: "AI-Powered Automation",
+            desc: "Automate repetitive tasks, streamline operations with intelligent algorithms that learn and adapt.",
+            accent: "wcu-orange",
+            btnText: "Explore AI"
+        },
+        {
+            icon: <BarChart3 size={26} />,
+            title: "Real-Time Strategic Insights",
+            desc: "Immediate dashboard updates with live data analytics accessible anytime, anywhere.",
+            accent: "wcu-pink",
+            btnText: "See Analytics"
+        },
+        {
+            icon: <ShieldCheck size={26} />,
+            title: "Quantum Level Security",
+            desc: "Your financial data encrypted end-to-end with anti-tampering and fraud protection built in.",
+            accent: "wcu-purple",
+            btnText: "Learn Security"
+        },
+        {
+            icon: <Globe size={26} />,
+            title: "Seamless Global Connectivity",
+            desc: "Tax compliance and integrations for worldwide business operations across currencies.",
+            accent: "wcu-indigo",
+            btnText: "Go Global"
+        }
+    ];
+
+    const bottomFeatures = [
+        { icon: <FileCheck size={24} />, label: "Intelligent Invoicing", accent: "wcu-orange" },
+        { icon: <Calculator size={24} />, label: "Tax Expense Management", accent: "wcu-pink" },
+        { icon: <Users size={24} />, label: "Multi-User Collaboration", accent: "wcu-purple" },
+        { icon: <Smartphone size={24} />, label: "Mobile Accessibility", accent: "wcu-indigo" }
+    ];
+
     return (
-        <section className="wcu-modern-section">
-            <div className="wcu-modern-container">
-                <h2 className="wcu-modern-title">Why Choose Us is Unbeatable</h2>
-
-                <div className="wcu-hex-grid">
-                    {/* Card 1 */}
-                    <div className="wcu-hex-card card-orange">
-                        <div className="wcu-hex-icon">
-                            <Settings size={28} />
-                        </div>
-                        <h3 className="wcu-hex-title">AI-Powered Automation</h3>
-                        <p className="wcu-hex-desc">Automate repetitive tasks, streamline operations with intelligent algorithms.</p>
-                    </div>
-
-                    {/* Card 2 */}
-                    <div className="wcu-hex-card card-blue">
-                        <div className="wcu-hex-icon">
-                            <BarChart3 size={28} />
-                        </div>
-                        <h3 className="wcu-hex-title">Real-Time Strategic Insights</h3>
-                        <p className="wcu-hex-desc">Immediate dashboard updates, accessing data analytics anywhere.</p>
-                    </div>
-
-                    {/* Card 3 */}
-                    <div className="wcu-hex-card card-purple">
-                        <div className="wcu-hex-icon">
-                            <ShieldCheck size={28} />
-                        </div>
-                        <h3 className="wcu-hex-title">Quantum Level Security</h3>
-                        <p className="wcu-hex-desc">Your financial data encrypted completely and anti-tampering protection.</p>
-                    </div>
-
-                    {/* Card 4 */}
-                    <div className="wcu-hex-card card-indigo">
-                        <div className="wcu-hex-icon">
-                            <Globe size={28} />
-                        </div>
-                        <h3 className="wcu-hex-title">Seamless Global Connectivity</h3>
-                        <p className="wcu-hex-desc">Tax compliance and integrations for worldwide business.</p>
-                    </div>
+        <section className="wcu-section">
+            <div className="wcu-container">
+                {/* Header */}
+                <div className="wcu-header">
+                    <span className="wcu-label"><Sparkles size={14} /> Why Choose Us</span>
+                    <h2 className="wcu-title">
+                        Why We're <span className="wcu-title-gradient">Unbeatable</span>
+                    </h2>
+                    <p className="wcu-subtitle">
+                        Built for modern accountants — powerful features that set us apart from the rest.
+                    </p>
                 </div>
 
-                <div className="wcu-bottom-features">
-                    <div className="wcu-feature-item">
-                        <FileCheck size={20} className="wcu-feature-icon text-pink" />
-                        <span>Intelligent Invoicing</span>
-                    </div>
-                    <div className="wcu-feature-item">
-                        <Calculator size={20} className="wcu-feature-icon text-blue" />
-                        <span>Tax Expense Management</span>
-                    </div>
-                    <div className="wcu-feature-item">
-                        <Users size={20} className="wcu-feature-icon text-orange" />
-                        <span>Multi-User Collaboration</span>
-                    </div>
-                    <div className="wcu-feature-item">
-                        <Smartphone size={20} className="wcu-feature-icon text-purple" />
-                        <span>Mobile Accessibility</span>
-                    </div>
+                {/* Main Cards */}
+                <div className="wcu-cards-grid">
+                    {mainCards.map((card, i) => (
+                        <div key={i} className={`wcu-card ${card.accent}`} style={{ animationDelay: `${i * 0.1}s` }}>
+                            <div className="wcu-card-icon">
+                                {card.icon}
+                            </div>
+                            <h3 className="wcu-card-title">{card.title}</h3>
+                            <p className="wcu-card-desc">{card.desc}</p>
+                            <a href="#" className="wcu-card-btn">
+                                <span>{card.btnText}</span>
+                                <ArrowRight size={14} className="wcu-btn-arrow" />
+                            </a>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Bottom Feature Strip */}
+                <div className="wcu-bottom-strip">
+                    {bottomFeatures.map((feat, i) => (
+                        <div key={i} className={`wcu-bottom-item ${feat.accent}`}>
+                            <div className="wcu-bottom-icon">{feat.icon}</div>
+                            <span className="wcu-bottom-label">{feat.label}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

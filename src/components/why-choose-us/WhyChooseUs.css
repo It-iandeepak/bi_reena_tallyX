@@ -1,138 +1,385 @@
-.wcu-modern-section {
-    padding: 6rem 0;
-    background-color: #f8fafc;
+/* ============================
+   WHY CHOOSE US – Premium Card Design
+   Color palette: Orange (#fb923c), Pink (#ec4899), Purple (#8b5cf6), Indigo (#6366f1)
+   ============================ */
+
+.wcu-section {
+    padding: 6rem 0 5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #f1f0fb 100%);
     font-family: var(--font-main, 'Inter', sans-serif);
+    overflow: hidden;
 }
 
-.wcu-modern-container {
+.wcu-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
+}
+
+/* ---- Header ---- */
+
+.wcu-header {
     text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3.5rem;
 }
 
-.wcu-modern-title {
-    font-size: 2.5rem;
+.wcu-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.1);
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+}
+
+.wcu-title {
+    font-size: 2.6rem;
     font-weight: 800;
+    line-height: 1.15;
     color: #1e293b;
-    margin-bottom: 4rem;
+    margin: 0 0 1rem;
 }
 
-.wcu-hex-grid {
-    display: flex;
-    justify-content: center;
+.wcu-title-gradient {
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wcu-subtitle {
+    font-size: 1.05rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ---- Cards Grid ---- */
+
+.wcu-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 4rem;
-    flex-wrap: wrap;
+    margin-bottom: 3rem;
 }
 
-.wcu-hex-card {
-    width: 250px;
-    height: 290px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+/* ---- Card ---- */
+
+.wcu-card {
+    position: relative;
+    background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%) border-box;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 2rem 1.5rem 1.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 2.5rem 1.5rem;
-    color: white;
-    transition: transform 0.3s ease;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: wcuFadeIn 0.6s ease both;
 }
 
-.wcu-hex-card:hover {
-    transform: translateY(-8px);
+@keyframes wcuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.card-orange {
-    background: linear-gradient(135deg, #fb923c 0%, #ef4444 100%);
+/* Card hover */
+.wcu-card:hover {
+    transform: translateY(-10px);
 }
 
-.card-blue {
-    background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+.wcu-orange:hover {
+    box-shadow: 0 20px 50px rgba(251, 146, 60, 0.18);
 }
 
-.card-purple {
-    background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%);
+.wcu-pink:hover {
+    box-shadow: 0 20px 50px rgba(236, 72, 153, 0.18);
 }
 
-.card-indigo {
-    background: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+.wcu-purple:hover {
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.18);
 }
 
-.wcu-hex-icon {
-    margin-bottom: 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.75rem;
-    border-radius: 50%;
+.wcu-indigo:hover {
+    box-shadow: 0 20px 50px rgba(99, 102, 241, 0.18);
+}
+
+/* ---- Card Icon ---- */
+
+.wcu-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1.25rem;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.wcu-hex-title {
+.wcu-card:hover .wcu-card-icon {
+    transform: scale(1.12) rotate(-5deg);
+}
+
+.wcu-orange .wcu-card-icon {
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.12), rgba(249, 115, 22, 0.18));
+    color: #fb923c;
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.12);
+}
+
+.wcu-pink .wcu-card-icon {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(244, 114, 182, 0.18));
+    color: #ec4899;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.12);
+}
+
+.wcu-purple .wcu-card-icon {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(167, 139, 250, 0.18));
+    color: #8b5cf6;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.12);
+}
+
+.wcu-indigo .wcu-card-icon {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(129, 140, 248, 0.18));
+    color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+}
+
+/* Hover glow on icon */
+.wcu-orange:hover .wcu-card-icon {
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.3);
+}
+
+.wcu-pink:hover .wcu-card-icon {
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
+}
+
+.wcu-purple:hover .wcu-card-icon {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+
+.wcu-indigo:hover .wcu-card-icon {
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* ---- Card Content ---- */
+
+.wcu-card-title {
     font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 0.6rem;
     line-height: 1.3;
 }
 
-.wcu-hex-desc {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    opacity: 0.9;
+.wcu-card-desc {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+    flex-grow: 1;
 }
 
-.wcu-bottom-features {
+/* ---- Card Button ---- */
+
+.wcu-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 9999px;
+    transition: all 0.35s ease;
+    margin-top: auto;
+}
+
+.wcu-btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.wcu-card-btn:hover .wcu-btn-arrow {
+    transform: translateX(4px);
+}
+
+.wcu-orange .wcu-card-btn {
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.08);
+    border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+.wcu-orange .wcu-card-btn:hover {
+    background: #fb923c;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(251, 146, 60, 0.3);
+}
+
+.wcu-pink .wcu-card-btn {
+    color: #ec4899;
+    background: rgba(236, 72, 153, 0.08);
+    border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.wcu-pink .wcu-card-btn:hover {
+    background: #ec4899;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+.wcu-purple .wcu-card-btn {
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.wcu-purple .wcu-card-btn:hover {
+    background: #8b5cf6;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.wcu-indigo .wcu-card-btn {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.wcu-indigo .wcu-card-btn:hover {
+    background: #6366f1;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* ---- Bottom Feature Strip ---- */
+
+.wcu-bottom-strip {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
-    color: #475569;
-    font-weight: 600;
-    font-size: 0.95rem;
+    padding: 2rem 0 0;
+    border-top: 1px solid #e2e8f0;
 }
 
-.wcu-feature-item {
+.wcu-bottom-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    transition: all 0.35s ease;
+    cursor: default;
 }
 
-.text-pink {
+.wcu-bottom-item:hover {
+    transform: translateY(-3px);
+    border-color: transparent;
+}
+
+.wcu-bottom-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wcu-bottom-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+/* Bottom item accent colors */
+.wcu-bottom-item.wcu-orange .wcu-bottom-icon {
+    color: #fb923c;
+}
+
+.wcu-bottom-item.wcu-pink .wcu-bottom-icon {
     color: #ec4899;
 }
 
-.text-blue {
-    color: #3b82f6;
-}
-
-.text-orange {
-    color: #f97316;
-}
-
-.text-purple {
+.wcu-bottom-item.wcu-purple .wcu-bottom-icon {
     color: #8b5cf6;
 }
 
-@media (max-width: 1024px) {
-    .wcu-hex-grid {
-        gap: 1rem;
-    }
+.wcu-bottom-item.wcu-indigo .wcu-bottom-icon {
+    color: #6366f1;
+}
 
-    .wcu-hex-card {
-        width: 220px;
-        height: 255px;
+.wcu-bottom-item.wcu-orange:hover {
+    background: rgba(251, 146, 60, 0.06);
+    border-color: rgba(251, 146, 60, 0.2);
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.1);
+}
+
+.wcu-bottom-item.wcu-pink:hover {
+    background: rgba(236, 72, 153, 0.06);
+    border-color: rgba(236, 72, 153, 0.2);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.1);
+}
+
+.wcu-bottom-item.wcu-purple:hover {
+    background: rgba(139, 92, 246, 0.06);
+    border-color: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.1);
+}
+
+.wcu-bottom-item.wcu-indigo:hover {
+    background: rgba(99, 102, 241, 0.06);
+    border-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.1);
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+@media (max-width: 1080px) {
+    .wcu-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
     }
 }
 
-@media (max-width: 768px) {
-    .wcu-modern-title {
+@media (max-width: 640px) {
+    .wcu-section {
+        padding: 4rem 0 3.5rem;
+    }
+
+    .wcu-title {
         font-size: 2rem;
     }
 
-    .wcu-bottom-features {
-        gap: 1.5rem;
-        flex-direction: column;
+    .wcu-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .wcu-bottom-strip {
+        gap: 1rem;
+    }
+
+    .wcu-bottom-item {
+        padding: 0.6rem 1rem;
     }
 }
