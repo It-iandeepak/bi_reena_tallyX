@@ -45,40 +45,25 @@
 }
 
 .ft-logo-row {
-    display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    margin-bottom: 0.6rem;
-}
-
-.ft-logo-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
-    color: #ffffff;
-    border-radius: 14px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
-    font-size: 1.6rem;
-    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    margin-bottom: 0.8rem;
+    background: #ffffff;
+    height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Mask out the massive vertical white padding */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 0 10px;
 }
 
-.ft-logo-icon:hover {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 8px 30px rgba(236, 72, 153, 0.4);
-}
-
-.ft-logo-name {
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    background: linear-gradient(135deg, #fb923c, #ec4899, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.ft-logo-img {
+    height: 190px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    mix-blend-mode: multiply;
 }
 
 .ft-tagline {

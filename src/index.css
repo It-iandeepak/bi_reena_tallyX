@@ -127,24 +127,21 @@ button {
     gap: 10px;
 }
 
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    color: white;
-    border-radius: 50%;
-    display: flex;
+.navbar-logo-link {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 800;
-    font-size: 1.2rem;
+    height: 48px;
+    overflow: hidden;
+    text-decoration: none;
 }
 
-.logo-text {
-    font-weight: 700;
-    font-size: 1.35rem;
-    color: #334155;
-    letter-spacing: -0.5px;
+.navbar-logo-img {
+    height: 190px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    mix-blend-mode: multiply;
 }
 
 .nav-links {

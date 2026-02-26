@@ -1,184 +1,459 @@
-.services-section {
-    background-color: #ffffff;
-    padding: 4rem 0;
-    font-family: 'Inter', system-ui, sans-serif;
+/* Services.css */
+.srv-section {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, #fafbff 0%, #f1f0fb 40%, #fef6ee 70%, #fafbff 100%);
+    font-family: var(--font-main, 'Inter', system-ui, sans-serif);
+    position: relative;
+    overflow: hidden;
 }
 
-.services-container {
+.srv-container {
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
+    z-index: 2;
 }
 
-.services-header {
+.srv-header {
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto 4rem;
+    max-width: 720px;
+    margin: 0 auto 4.5rem;
 }
 
-.services-label {
-    text-transform: uppercase;
-    font-size: 0.85rem;
+.srv-pill {
+    display: inline-block;
+    font-size: 0.75rem;
     font-weight: 700;
+    color: #4f46e5;
+    background: #eef2ff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    text-transform: uppercase;
     letter-spacing: 2px;
-    color: #0055ff;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #c7d2fe;
 }
 
-.services-headline {
-    font-size: 2.5rem;
+.srv-headline {
+    font-size: 4rem;
     font-weight: 800;
-    color: #0f172a;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    letter-spacing: -1px;
+    color: #0b1121;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1.5px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.services-subheadline {
-    font-size: 1.1rem;
+.srv-subheadline {
+    font-size: 1.15rem;
     color: #475569;
     line-height: 1.7;
+    margin: 0;
 }
 
-.services-grid {
+/* =========================================
+   BENTO BOX GRID LAYOUT
+   ========================================= */
+.srv-bento-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(min-content, auto);
+    gap: 1.5rem;
 }
 
-.service-card {
-    background: linear-gradient(#ffffff, #ffffff) padding-box,
-        linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%) border-box;
-    border: 2px solid transparent;
-    border-radius: 16px;
-    padding: 3rem 2.5rem;
+.srv-card {
     position: relative;
-    overflow: hidden;
+    background: #ffffff;
+    border-radius: 28px;
+    border: 1px solid #e2e8f0;
+    padding: 2.25rem;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05);
-    /* Softer base shadow */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    height: 100%;
-    /* Ensures all flex items stretch evenly in the grid */
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
 }
 
-/* Subtle premium top highlight for the cards */
-.service-card::before {
+/* Interactive Hover Glow (Flashlight effect via JS mouse pos) */
+.srv-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    inset: 0;
+    border-radius: inherit;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -10px rgba(236, 72, 153, 0.25);
-    /* Pinkish glow from gradient */
+.srv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08),
+        0 8px 16px -4px rgba(0, 0, 0, 0.04);
 }
 
-.service-card:hover::before {
+.srv-card:hover::before {
     opacity: 1;
 }
 
-.service-icon-box {
+.srv-card-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.srv-icon-box {
     width: 60px;
     height: 60px;
-    background: #f8fafc;
-    color: #ec4899;
-    /* Permanent pink color */
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    margin-left: 7.55rem;
-    transition: background 0.3s, color 0.3s;
-}
-
-.service-card:hover .service-icon-box {
-    transform: scale(1.1);
-}
-
-.service-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #0055ff;
-    margin-bottom: 1rem;
-}
-
-.service-desc {
-    font-size: 0.95rem;
-    color: #0f172a;
-    line-height: 1.6;
     margin-bottom: 2rem;
-    flex-grow: 1;
-    text-align: justify;
-    /* Pushes the link to the bottom */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-link {
+.srv-card:hover .srv-icon-box {
+    transform: scale(1.1) rotate(5deg);
+    border-radius: 12px;
+}
+
+.srv-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 1rem;
+    letter-spacing: -0.5px;
+}
+
+.srv-desc {
     font-size: 0.95rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: linear-gradient(135deg, #ef4444 0%, #e11d48 100%);
-    padding: 0.8rem 1.8rem;
-    border-radius: 9999px;
-    /* Pill shaped button */
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #64748b;
+    line-height: 1.6;
+    margin: 0 0 2rem;
+    flex-grow: 1;
+}
+
+.srv-card-footer {
+    display: flex;
+    align-items: center;
     margin-top: auto;
+}
+
+.srv-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 20px -5px rgba(225, 29, 72, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    letter-spacing: 0.01em;
-    align-self: center;
-    /* Center the button within the card */
-    width: fit-content;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+    border: 1px solid transparent;
 }
 
-.service-link::after {
-    content: '→';
-    margin-left: 0.5rem;
-    font-size: 1.1rem;
-    transition: transform 0.3s ease;
+
+/* =========================================
+   BENTO SIZING & CARD SPECIFICS
+   ========================================= */
+
+/* Hero Card - Brand Theme */
+.srv-card.srv-brand {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: linear-gradient(135deg, #111827 0%, #17172e 100%);
+    border-color: #2a2a40;
+    padding: 3rem 2.8rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
-.service-link:hover {
+.srv-card.srv-brand .srv-card-inner {
+    justify-content: space-between;
+}
+
+.srv-card.srv-brand .srv-icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.srv-card.srv-brand .srv-icon-box svg {
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+}
+
+.srv-card.srv-brand .srv-title {
     color: #ffffff;
-    background: linear-gradient(135deg, #dc2626 0%, #be123c 100%);
-    box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.5);
+    font-size: 2.25rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+}
+
+.srv-card.srv-brand .srv-desc {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+    max-width: 90%;
+}
+
+.srv-card.srv-brand::before {
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(236, 72, 153, 0.15), transparent 50%);
+}
+
+.srv-card.srv-brand .srv-link {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
+    color: #ffffff;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.srv-card.srv-brand:hover .srv-link {
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
     transform: translateY(-2px);
 }
 
-.service-link:hover::after {
+/* Small Square Cards */
+.srv-card:nth-child(2),
+.srv-card:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* Wide Horizontal Cards */
+.srv-card:nth-child(4),
+.srv-card:nth-child(5),
+.srv-card:nth-child(6) {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.srv-card:nth-child(4) .srv-card-inner,
+.srv-card:nth-child(5) .srv-card-inner,
+.srv-card:nth-child(6) .srv-card-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.srv-card:nth-child(4) .srv-icon-box,
+.srv-card:nth-child(5) .srv-icon-box,
+.srv-card:nth-child(6) .srv-icon-box {
+    margin-bottom: 0;
+}
+
+.srv-card:nth-child(4) .srv-title,
+.srv-card:nth-child(5) .srv-title,
+.srv-card:nth-child(6) .srv-title {
+    margin-bottom: 0.5rem;
+}
+
+.srv-card:nth-child(4) .srv-desc,
+.srv-card:nth-child(5) .srv-desc,
+.srv-card:nth-child(6) .srv-desc {
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   ACCENTS & DYNAMIC GLOW (Matching Site Theme)
+   ========================================= */
+
+/* Emerald Theme -> Green */
+.srv-card.srv-emerald::before {
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.08), transparent 40%);
+}
+
+.srv-card.srv-emerald .srv-icon-box {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.srv-card.srv-emerald .srv-link {
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.srv-card.srv-emerald:hover .srv-link {
+    background: #10b981;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+}
+
+/* Purple Theme */
+.srv-card.srv-purple::before {
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.08), transparent 40%);
+}
+
+.srv-card.srv-purple .srv-icon-box {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.srv-card.srv-purple .srv-link {
+    color: #8b5cf6;
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+.srv-card.srv-purple:hover .srv-link {
+    background: #8b5cf6;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25);
+    border-color: #8b5cf6;
+}
+
+/* Pink Theme */
+.srv-card.srv-pink::before {
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(236, 72, 153, 0.08), transparent 40%);
+}
+
+.srv-card.srv-pink .srv-icon-box {
+    background: rgba(236, 72, 153, 0.1);
+    color: #ec4899;
+}
+
+.srv-card.srv-pink .srv-link {
+    color: #ec4899;
+    border-color: rgba(236, 72, 153, 0.2);
+}
+
+.srv-card.srv-pink:hover .srv-link {
+    background: #ec4899;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+    border-color: #ec4899;
+}
+
+/* Orange Theme */
+.srv-card.srv-orange::before {
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(249, 115, 22, 0.08), transparent 40%);
+}
+
+.srv-card.srv-orange .srv-icon-box {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+}
+
+.srv-card.srv-orange .srv-link {
+    color: #f97316;
+    border-color: rgba(249, 115, 22, 0.2);
+}
+
+.srv-card.srv-orange:hover .srv-link {
+    background: #f97316;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
+    border-color: #f97316;
+}
+
+/* Indigo Theme */
+.srv-card.srv-indigo::before {
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(79, 70, 229, 0.08), transparent 40%);
+}
+
+.srv-card.srv-indigo .srv-icon-box {
+    background: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+}
+
+.srv-card.srv-indigo .srv-link {
+    color: #4f46e5;
+    border-color: rgba(79, 70, 229, 0.2);
+}
+
+.srv-card.srv-indigo:hover .srv-link {
+    background: #4f46e5;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+    border-color: #4f46e5;
+}
+
+/* Arrow Hover */
+.srv-arrow {
+    transition: transform 0.3s ease;
+}
+
+.srv-card:hover .srv-arrow {
     transform: translateX(4px);
 }
 
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
 @media (max-width: 1024px) {
-    .services-grid {
+    .srv-bento-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .srv-card:nth-child(1),
+    .srv-card:nth-child(4),
+    .srv-card:nth-child(5),
+    .srv-card:nth-child(6) {
+        grid-column: span 2;
+    }
+
+    .srv-card:nth-child(2),
+    .srv-card:nth-child(3) {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Stack elements in wide cards vertically on mobile */
+    .srv-card:nth-child(4) .srv-card-inner,
+    .srv-card:nth-child(5) .srv-card-inner,
+    .srv-card:nth-child(6) .srv-card-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .srv-card:nth-child(4) .srv-icon-box,
+    .srv-card:nth-child(5) .srv-icon-box,
+    .srv-card:nth-child(6) .srv-icon-box {
+        margin-bottom: 1.5rem;
+    }
+
+    .srv-card:nth-child(4) .srv-desc,
+    .srv-card:nth-child(5) .srv-desc,
+    .srv-card:nth-child(6) .srv-desc {
+        margin-bottom: 2rem;
     }
 }
 
 @media (max-width: 640px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .services-section {
+    .srv-section {
         padding: 5rem 0;
     }
 
-    .services-headline {
-        font-size: 2.25rem;
+    .srv-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .srv-card {
+        grid-column: span 1 !important;
+        grid-row: auto !important;
+    }
+
+    .srv-headline {
+        font-size: 2.2rem;
     }
 }

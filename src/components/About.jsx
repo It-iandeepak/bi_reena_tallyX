@@ -2,9 +2,11 @@ import React from 'react';
 import {
     ShieldCheck, Activity, Target, Users, Zap, TrendingUp,
     ArrowRight, Sparkles, Heart, Eye, Linkedin, Quote, Star,
-    CheckCircle, Award, Globe, BarChart3, Lock, RefreshCw
+    CheckCircle, Award, Globe, BarChart3, Lock, RefreshCw,
+    Shield, HeadphonesIcon, UserPlus, FileSpreadsheet, Download, CheckCircle2
 } from 'lucide-react';
 import './About.css';
+import newTeamImage from '../assets/new_team.png';
 import aboutImg from '../assets/about-fintech.png';
 
 const About = () => {
@@ -34,7 +36,7 @@ const About = () => {
         {
             name: "Priya Sharma", role: "Chief Technology Officer", accent: "ab-pink",
             bio: "Ex-Google architect specializing in scalable cloud-native SaaS infrastructure.",
-            photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face"
+            photo: newTeamImage
         },
         {
             name: "Ankit Verma", role: "VP of Product", accent: "ab-purple",

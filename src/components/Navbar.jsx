@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import logoImage from '../assets/logo.png';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -30,9 +31,8 @@ const Navbar = () => {
 
             <div className="container navbar-container">
                 <div className="logo-section">
-                    <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-                        <div className="logo-icon">B</div>
-                        <div className="logo-text">BiReenaTellyX</div>
+                    <Link to="/" className="navbar-logo-link">
+                        <img src={logoImage} alt="BiReenaTellyX Logo" className="navbar-logo-img" />
                     </Link>
                 </div>
 
