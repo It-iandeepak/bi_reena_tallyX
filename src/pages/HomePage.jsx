@@ -5,6 +5,8 @@ import DashboardPreview from '../components/DashboardPreview';
 import Services from '../components/Services';
 import Features from '../components/Features';
 import FullPageSlider from '../components/FullPageSlider';
+import AICopilot from '../components/AICopilot';
+import MobileApp from '../components/MobileApp';
 import WhyChooseUs from '../components/why-choose-us/WhyChooseUs';
 import Pricing from '../components/pricing/Pricing';
 import TailoredSolutions from '../components/tailored-solutions/TailoredSolutions';
@@ -16,8 +18,10 @@ const HomePage = () => {
         <Layout>
             <Hero />
             <DashboardPreview />
+            <AICopilot />
             <WhyChooseUs />
             <Services />
+            <MobileApp />
             <Features />
             <FullPageSlider />
             <Pricing compact={true} />

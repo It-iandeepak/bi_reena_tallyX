@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './Services.css';
 import {
     Calculator,
@@ -10,43 +10,24 @@ import {
     ArrowRight
 } from 'lucide-react';
 
-const ServiceCard = ({ service, index }) => {
-    const cardRef = useRef(null);
-
-    const handleMouseMove = (e) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        cardRef.current.style.setProperty('--mouse-x', `${x}px`);
-        cardRef.current.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    // Calculate icon size based on position in bento grid
-    // First card is the large hero card, so it gets a bigger icon
-    const iconSize = index === 0 ? 38 : 28;
-
+const ServiceCard = ({ service }) => {
     return (
-        <div
-            ref={cardRef}
-            className={`srv-card ${service.accent}`}
-            onMouseMove={handleMouseMove}
-        >
-            <div className="srv-card-inner">
-                <div className="srv-icon-box">
-                    {React.cloneElement(service.icon, { size: iconSize })}
-                </div>
-                <div className="srv-text-content">
-                    <h3 className="srv-title">{service.title}</h3>
-                    <p className="srv-desc">{service.desc}</p>
-                </div>
-                <div className="srv-card-footer">
-                    <a href="#contact" className="srv-link">
-                        <span>Learn more</span>
-                        <ArrowRight size={18} className="srv-arrow" />
-                    </a>
-                </div>
+        <div className="services-card">
+            <div className="services-icon-container">
+                {React.cloneElement(service.icon, { size: 28, strokeWidth: 1.5 })}
             </div>
+            <h3 className="services-card-title">{service.title}</h3>
+            <p className="services-card-desc">{service.desc}</p>
+            <a
+                href="#contact"
+                className="services-card-btn"
+                onClick={(e) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new Event('openServicesModal'));
+                }}
+            >
+                Learn more <ArrowRight size={18} />
+            </a>
         </div>
     );
 };
@@ -56,56 +37,50 @@ const Services = () => {
         {
             icon: <Calculator />,
             title: "Automated Bookkeeping",
-            desc: "Say goodbye to manual data entry. We categorize transactions, reconcile bank accounts, and keep your books perpetually audit-ready with intelligent automation.",
-            accent: "srv-brand"
+            desc: "Say goodbye to manual data entry. We categorize transactions, reconcile bank accounts, and keep your books perpetually audit-ready."
         },
         {
             icon: <FileText />,
-            title: "Tax Prep & Compliance",
-            desc: "Stay ahead of regulatory deadlines & minimize tax liability.",
-            accent: "srv-emerald"
+            title: "Tax Preparation & Compliance",
+            desc: "Stay ahead of regulatory deadlines. We generate detailed tax reports, monitor compliance changes, and prepare everything for easy filing."
         },
         {
             icon: <PieChart />,
             title: "Financial Reporting",
-            desc: "Custom balance sheets and granular cash flow analytics.",
-            accent: "srv-purple"
+            desc: "Gain deep insights into your cash flow. We provide customizable balance sheets, profit & loss statements, and granular cash flow analysis."
         },
         {
             icon: <Users />,
             title: "Payroll Management",
-            desc: "Simplify payroll processing with automated calculations, precise tax withholding, and direct deposit setups for your entire team globally.",
-            accent: "srv-pink"
+            desc: "Simplify payroll processing with automated calculations, precise tax withholding, and direct deposit setups for your entire team."
         },
         {
             icon: <Briefcase />,
             title: "CFO Advisory Services",
-            desc: "Get strategic financial planning. Our virtual CFOs help you map out growth, analyze margins, and secure long-term capital forecasting.",
-            accent: "srv-orange"
+            desc: "Get strategic financial planning. Our virtual CFOs help you map out growth, analyze margins, and secure long-term capital forecasting."
         },
         {
             icon: <Building />,
             title: "Enterprise Solutions",
-            desc: "Custom consolidation and multi-entity management for scaling businesses that require advanced operational and multi-tenant workflows.",
-            accent: "srv-indigo"
+            desc: "Custom consolidation and multi-entity management for scaling businesses that require advanced operational workflows."
         }
     ];
 
     return (
-        <section className="srv-section" id="services">
-            <div className="srv-container">
-                <div className="srv-header">
-                    <span className="srv-pill">OUR EXPERTISE</span>
-                    <h2 className="srv-headline">Comprehensive <br /> Accounting Services</h2>
-                    <p className="srv-subheadline">
-                        From basic ledger management to complex tax strategy, BiReenaTellyX offers a full <br />
-                        suite of interactive solutions designed to let you focus on growing your business.
+        <section className="services-section" id="services">
+            <div className="services-container">
+                <div className="services-header">
+                    <span className="services-pill">OUR EXPERTISE</span>
+                    <h2 className="services-headline">Comprehensive Accounting Services</h2>
+                    <p className="services-subheadline">
+                        From basic ledger management to complex tax strategy, BiReenaTellyX offers a full<br />
+                        suite of services designed to let you focus on growing your business.
                     </p>
                 </div>
 
-                <div className="srv-bento-grid">
+                <div className="services-grid">
                     {services.map((service, index) => (
-                        <ServiceCard key={index} service={service} index={index} />
+                        <ServiceCard key={index} service={service} />
                     ))}
                 </div>
             </div>

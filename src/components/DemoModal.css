@@ -1,0 +1,257 @@
+/* DemoModal.css - Premium Glassmorphism and MacOS Genie Animation */
+
+.demo-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    /* Blurred background just like Mac OS */
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: demoFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.demo-modal-overlay.closing {
+    animation: demoFadeOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.demo-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
+    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transform-origin: bottom center;
+    /* Animation origin for Mac OS style */
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.demo-modal-content.opening-genie {
+    animation: genieIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+    /* Elastic bounce */
+}
+
+.demo-modal-content.closing-genie {
+    animation: genieOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+    /* Succesful slide down */
+}
+
+@keyframes demoFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes demoFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes genieIn {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateY(500px) scaleX(0.5);
+        /* Squeezed and lowered */
+        border-radius: 50%;
+        /* Rounded out during travel */
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-20px) scaleX(1.05);
+        /* Over-bounce */
+        border-radius: 20px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) scaleX(1);
+        border-radius: 24px;
+    }
+}
+
+@keyframes genieOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(400px) scaleX(0.5);
+        /* Swallowed into bottom */
+    }
+}
+
+/* Close button */
+.demo-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: #f1f5f9;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.demo-modal-close:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* Header */
+.demo-modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.demo-modal-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.demo-modal-header p {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Form Styles */
+.demo-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.demo-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.demo-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.demo-field label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.demo-field label svg {
+    color: #0066ff;
+}
+
+.demo-field input,
+.demo-field select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1e293b;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.demo-field input:focus,
+.demo-field select:focus {
+    border-color: #e6397c;
+    /* Pink focus based on recent changes */
+    box-shadow: 0 0 0 3px rgba(230, 57, 124, 0.1);
+}
+
+.demo-field input::placeholder {
+    color: #cbd5e1;
+}
+
+.demo-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+.demo-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
+}
+
+.demo-modal-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+}
+
+.demo-btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.demo-modal-submit:hover .demo-btn-icon {
+    transform: translateX(4px) translateY(-4px);
+    /* Fly up and right */
+}
+
+@media (max-width: 600px) {
+    .demo-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-modal-content {
+        padding: 2rem 1.5rem;
+    }
+}

@@ -1,459 +1,242 @@
 /* Services.css */
-.srv-section {
-    padding: 8rem 0;
-    background: linear-gradient(180deg, #fafbff 0%, #f1f0fb 40%, #fef6ee 70%, #fafbff 100%);
+.services-section {
+    padding: 6rem 0;
+    /* Soft clean light gradient background to contrast the glass cards */
+    background: linear-gradient(180deg, #fdfdff 0%, #f4f5f9 100%);
     font-family: var(--font-main, 'Inter', system-ui, sans-serif);
     position: relative;
     overflow: hidden;
 }
 
-.srv-container {
-    max-width: 1240px;
+/* Background aesthetic orbs */
+.services-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -5%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 60%);
+    z-index: 0;
+}
+
+.services-section::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -5%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
+    z-index: 0;
+}
+
+.services-container {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
     z-index: 2;
 }
 
-.srv-header {
+.services-header {
     text-align: center;
-    max-width: 720px;
+    max-width: 800px;
     margin: 0 auto 4.5rem;
 }
 
-.srv-pill {
+.services-pill {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: #4f46e5;
     background: #eef2ff;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.25rem;
     border-radius: 50px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-    border: 1px solid #c7d2fe;
+    letter-spacing: 1.5px;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(79, 70, 229, 0.2);
 }
 
-.srv-headline {
-    font-size: 4rem;
+.services-headline {
+    font-size: 3rem;
     font-weight: 800;
     color: #0b1121;
-    line-height: 1.15;
+    line-height: 1.2;
     margin-bottom: 1.5rem;
-    letter-spacing: -1.5px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    letter-spacing: -1px;
 }
 
-.srv-subheadline {
+.services-subheadline {
     font-size: 1.15rem;
-    color: #475569;
+    color: #0b1121;
     line-height: 1.7;
     margin: 0;
 }
 
-/* =========================================
-   BENTO BOX GRID LAYOUT
-   ========================================= */
-.srv-bento-grid {
+/* Grid Layout */
+.services-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(min-content, auto);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
-.srv-card {
-    position: relative;
-    background: #ffffff;
-    border-radius: 28px;
-    border: 1px solid #e2e8f0;
-    padding: 2.25rem;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* Service Card with Glassy Premium Effect */
+.services-card {
+    background: rgba(255, 255, 255, 0.85);
+    /* Semi-transparent white */
+    backdrop-filter: blur(12px);
+    /* Glass effect */
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    /* Left align content */
+    text-align: left;
+    /* Left align text */
+    position: relative;
     z-index: 1;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
-}
 
-/* Interactive Hover Glow (Flashlight effect via JS mouse pos) */
-.srv-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.srv-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08),
-        0 8px 16px -4px rgba(0, 0, 0, 0.04);
-}
-
-.srv-card:hover::before {
-    opacity: 1;
-}
-
-.srv-card-inner {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
+    /* Elegant gradient border using pseudo-element for smoothness */
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     height: 100%;
 }
 
-.srv-icon-box {
+/* Gradient Border Injection */
+.services-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    /* Border thickness */
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.4) 0%, rgba(139, 92, 246, 0.4) 50%, rgba(236, 72, 153, 0.4) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    transition: background 0.4s ease;
+}
+
+.services-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.1), 0 0 20px rgba(139, 92, 246, 0.05);
+}
+
+.services-card:hover::before {
+    /* Brighten border on hover */
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.8) 0%, rgba(139, 92, 246, 0.8) 50%, rgba(236, 72, 153, 0.8) 100%);
+}
+
+/* Icon Container */
+.services-icon-container {
     width: 60px;
     height: 60px;
+    background: linear-gradient(135deg, #fdf2f8, #f5f3ff);
+    color: #e11d48;
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 2rem;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-left: 0;
+    /* Left align icon */
+    position: relative;
+    box-shadow: inset 0 0 0 1px rgba(225, 29, 72, 0.1), 0 8px 16px -4px rgba(225, 29, 72, 0.1);
+    transition: all 0.4s ease;
 }
 
-.srv-card:hover .srv-icon-box {
-    transform: scale(1.1) rotate(5deg);
-    border-radius: 12px;
+.services-card:hover .services-icon-container {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ffe4e6, #ede9fe);
 }
 
-.srv-title {
-    font-size: 1.25rem;
+/* Typography */
+.services-card-title {
+    font-size: 1.35rem;
     font-weight: 800;
     color: #0f172a;
-    margin: 0 0 1rem;
-    letter-spacing: -0.5px;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.3px;
+    width: 100%;
 }
 
-.srv-desc {
+.services-card-desc {
     font-size: 0.95rem;
-    color: #64748b;
+    color: #1e293b;
     line-height: 1.6;
-    margin: 0 0 2rem;
+    margin: 0 0 2rem 0;
     flex-grow: 1;
+
+    /* Ensuring exactly 4 lines spacing */
+    min-height: calc(4 * 1.6 * 0.95rem);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.srv-card-footer {
-    display: flex;
-    align-items: center;
-    margin-top: auto;
-}
-
-.srv-link {
+/* Premium Learn More Button */
+.services-card-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 700;
+
+    /* Pink color based on user request */
+    background: #e6397c;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    background: transparent;
-    border: 1px solid transparent;
+
+    /* Deep pink elegant shadow */
+    box-shadow: 0 6px 15px rgba(230, 57, 124, 0.35);
+    margin-top: auto;
+    margin-left: 0;
+    /* Left align button */
+    width: fit-content;
 }
 
-
-/* =========================================
-   BENTO SIZING & CARD SPECIFICS
-   ========================================= */
-
-/* Hero Card - Brand Theme */
-.srv-card.srv-brand {
-    grid-column: span 2;
-    grid-row: span 2;
-    background: linear-gradient(135deg, #111827 0%, #17172e 100%);
-    border-color: #2a2a40;
-    padding: 3rem 2.8rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-.srv-card.srv-brand .srv-card-inner {
-    justify-content: space-between;
-}
-
-.srv-card.srv-brand .srv-icon-box {
-    width: 80px;
-    height: 80px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    color: #fff;
-}
-
-.srv-card.srv-brand .srv-icon-box svg {
-    stroke: #ffffff;
-    stroke-width: 1.5px;
-}
-
-.srv-card.srv-brand .srv-title {
-    color: #ffffff;
-    font-size: 2.25rem;
-    line-height: 1.15;
-    margin-bottom: 1.25rem;
-}
-
-.srv-card.srv-brand .srv-desc {
-    color: #94a3b8;
-    font-size: 1.1rem;
-    line-height: 1.65;
-    margin-bottom: 2.5rem;
-    max-width: 90%;
-}
-
-.srv-card.srv-brand::before {
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(236, 72, 153, 0.15), transparent 50%);
-}
-
-.srv-card.srv-brand .srv-link {
-    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
-    color: #ffffff;
-    border: none;
-    padding: 0.8rem 1.6rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-}
-
-.srv-card.srv-brand:hover .srv-link {
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+.services-card-btn:hover {
+    box-shadow: 0 10px 25px rgba(230, 57, 124, 0.45);
     transform: translateY(-2px);
+    background: #d42767;
 }
 
-/* Small Square Cards */
-.srv-card:nth-child(2),
-.srv-card:nth-child(3) {
-    grid-column: span 1;
-    grid-row: span 1;
-}
-
-/* Wide Horizontal Cards */
-.srv-card:nth-child(4),
-.srv-card:nth-child(5),
-.srv-card:nth-child(6) {
-    grid-column: span 2;
-    grid-row: span 1;
-}
-
-.srv-card:nth-child(4) .srv-card-inner,
-.srv-card:nth-child(5) .srv-card-inner,
-.srv-card:nth-child(6) .srv-card-inner {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 1.5rem;
-    height: 100%;
-}
-
-.srv-card:nth-child(4) .srv-icon-box,
-.srv-card:nth-child(5) .srv-icon-box,
-.srv-card:nth-child(6) .srv-icon-box {
-    margin-bottom: 0;
-}
-
-.srv-card:nth-child(4) .srv-title,
-.srv-card:nth-child(5) .srv-title,
-.srv-card:nth-child(6) .srv-title {
-    margin-bottom: 0.5rem;
-}
-
-.srv-card:nth-child(4) .srv-desc,
-.srv-card:nth-child(5) .srv-desc,
-.srv-card:nth-child(6) .srv-desc {
-    margin-bottom: 0;
-}
-
-
-/* =========================================
-   ACCENTS & DYNAMIC GLOW (Matching Site Theme)
-   ========================================= */
-
-/* Emerald Theme -> Green */
-.srv-card.srv-emerald::before {
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(16, 185, 129, 0.08), transparent 40%);
-}
-
-.srv-card.srv-emerald .srv-icon-box {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-}
-
-.srv-card.srv-emerald .srv-link {
-    color: #10b981;
-    border-color: rgba(16, 185, 129, 0.2);
-}
-
-.srv-card.srv-emerald:hover .srv-link {
-    background: #10b981;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
-    border-color: #10b981;
-}
-
-/* Purple Theme */
-.srv-card.srv-purple::before {
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.08), transparent 40%);
-}
-
-.srv-card.srv-purple .srv-icon-box {
-    background: rgba(139, 92, 246, 0.1);
-    color: #8b5cf6;
-}
-
-.srv-card.srv-purple .srv-link {
-    color: #8b5cf6;
-    border-color: rgba(139, 92, 246, 0.2);
-}
-
-.srv-card.srv-purple:hover .srv-link {
-    background: #8b5cf6;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25);
-    border-color: #8b5cf6;
-}
-
-/* Pink Theme */
-.srv-card.srv-pink::before {
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(236, 72, 153, 0.08), transparent 40%);
-}
-
-.srv-card.srv-pink .srv-icon-box {
-    background: rgba(236, 72, 153, 0.1);
-    color: #ec4899;
-}
-
-.srv-card.srv-pink .srv-link {
-    color: #ec4899;
-    border-color: rgba(236, 72, 153, 0.2);
-}
-
-.srv-card.srv-pink:hover .srv-link {
-    background: #ec4899;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
-    border-color: #ec4899;
-}
-
-/* Orange Theme */
-.srv-card.srv-orange::before {
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(249, 115, 22, 0.08), transparent 40%);
-}
-
-.srv-card.srv-orange .srv-icon-box {
-    background: rgba(249, 115, 22, 0.1);
-    color: #f97316;
-}
-
-.srv-card.srv-orange .srv-link {
-    color: #f97316;
-    border-color: rgba(249, 115, 22, 0.2);
-}
-
-.srv-card.srv-orange:hover .srv-link {
-    background: #f97316;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
-    border-color: #f97316;
-}
-
-/* Indigo Theme */
-.srv-card.srv-indigo::before {
-    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(79, 70, 229, 0.08), transparent 40%);
-}
-
-.srv-card.srv-indigo .srv-icon-box {
-    background: rgba(79, 70, 229, 0.1);
-    color: #4f46e5;
-}
-
-.srv-card.srv-indigo .srv-link {
-    color: #4f46e5;
-    border-color: rgba(79, 70, 229, 0.2);
-}
-
-.srv-card.srv-indigo:hover .srv-link {
-    background: #4f46e5;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
-    border-color: #4f46e5;
-}
-
-/* Arrow Hover */
-.srv-arrow {
+.services-card-btn svg {
     transition: transform 0.3s ease;
 }
 
-.srv-card:hover .srv-arrow {
+.services-card-btn:hover svg {
     transform: translateX(4px);
 }
 
-/* =========================================
-   RESPONSIVE DESIGN
-   ========================================= */
+/* Responsive */
 @media (max-width: 1024px) {
-    .srv-bento-grid {
+    .services-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .srv-card:nth-child(1),
-    .srv-card:nth-child(4),
-    .srv-card:nth-child(5),
-    .srv-card:nth-child(6) {
-        grid-column: span 2;
-    }
-
-    .srv-card:nth-child(2),
-    .srv-card:nth-child(3) {
-        grid-column: span 1;
     }
 }
 
 @media (max-width: 768px) {
-
-    /* Stack elements in wide cards vertically on mobile */
-    .srv-card:nth-child(4) .srv-card-inner,
-    .srv-card:nth-child(5) .srv-card-inner,
-    .srv-card:nth-child(6) .srv-card-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-    }
-
-    .srv-card:nth-child(4) .srv-icon-box,
-    .srv-card:nth-child(5) .srv-icon-box,
-    .srv-card:nth-child(6) .srv-icon-box {
-        margin-bottom: 1.5rem;
-    }
-
-    .srv-card:nth-child(4) .srv-desc,
-    .srv-card:nth-child(5) .srv-desc,
-    .srv-card:nth-child(6) .srv-desc {
-        margin-bottom: 2rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .srv-section {
-        padding: 5rem 0;
-    }
-
-    .srv-bento-grid {
+    .services-grid {
         grid-template-columns: 1fr;
     }
 
-    .srv-card {
-        grid-column: span 1 !important;
-        grid-row: auto !important;
+    .services-headline {
+        font-size: 2.5rem;
     }
 
-    .srv-headline {
-        font-size: 2.2rem;
+    .services-section {
+        padding: 4rem 0;
     }
 }

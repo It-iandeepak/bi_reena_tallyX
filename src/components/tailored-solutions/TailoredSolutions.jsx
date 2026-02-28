@@ -51,7 +51,7 @@ const TailoredSolutions = () => {
                             <p className="ts-card-desc">{solution.description}</p>
 
                             <div className="ts-card-footer">
-                                <button className="ts-action-link">
+                                <button className="ts-action-link" onClick={() => window.dispatchEvent(new Event('openSolutionsModal'))}>
                                     <span>Learn more</span>
                                     <ArrowRight size={18} className="ts-arrow" />
                                 </button>

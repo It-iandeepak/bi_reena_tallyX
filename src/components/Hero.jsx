@@ -39,10 +39,22 @@ const Hero = () => {
                 </p>
 
                 <div className="hero-ctas">
-                    <button className="btn btn-primary btn-xl">
+                    <button
+                        className="btn btn-primary btn-xl"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.dispatchEvent(new Event('openTrialModal'));
+                        }}
+                    >
                         Sign up Now <ArrowRight size={18} className="ml-2" style={{ marginLeft: '8px' }} />
                     </button>
-                    <button className="btn btn-white btn-xl flex-center">
+                    <button
+                        className="btn btn-white btn-xl flex-center"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.dispatchEvent(new Event('openDemoModal'));
+                        }}
+                    >
                         <Play size={18} fill="#0d6efd" color="#0d6efd" style={{ marginRight: '8px' }} /> Schedule Demo
                     </button>
                 </div>

@@ -171,7 +171,13 @@ const Pricing = ({ compact = false }) => {
                                 ))}
                             </ul>}
 
-                            <button className={`trial-btn ${tier.popular ? 'btn-popular' : ''}`}>
+                            <button
+                                className={`trial-btn ${tier.popular ? 'btn-popular' : ''}`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.dispatchEvent(new Event('openPricingModal'));
+                                }}
+                            >
                                 <span>{compact ? 'View Details' : 'Get Started'}</span>
                             </button>
                         </div>

@@ -67,7 +67,14 @@ const WhyChooseUs = () => {
                             </div>
                             <h3 className="wcu-card-title">{card.title}</h3>
                             <p className="wcu-card-desc">{card.desc}</p>
-                            <a href="#" className="wcu-card-btn">
+                            <a
+                                href="#"
+                                className="wcu-card-btn"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.dispatchEvent(new Event('openWhyChooseUsModal'));
+                                }}
+                            >
                                 <span>{card.btnText}</span>
                                 <ArrowRight size={14} className="wcu-btn-arrow" />
                             </a>
