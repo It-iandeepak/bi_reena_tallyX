@@ -81,7 +81,14 @@ const Features = () => {
                             <div className="feature-text-block">
                                 <h3 className="feature-heading">{feat.title}</h3>
                                 <p className="feature-description">{feat.desc}</p>
-                                <a href="#" className="feat-learn-btn">
+                                <a
+                                    href="#"
+                                    className="feat-learn-btn"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.dispatchEvent(new Event('openFeatureModal'));
+                                    }}
+                                >
                                     <span>Learn More</span>
                                     <ArrowRight size={15} className="feat-btn-arrow" />
                                 </a>

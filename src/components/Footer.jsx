@@ -75,7 +75,7 @@ const Footer = () => {
                             Cost-Effective, Customizable, Streamlined, Accounting Software.
                         </h2>
                     </div>
-                    <button className="ft-cta-btn">
+                    <button className="ft-cta-btn" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openDemoModal')); }}>
                         <span>Book a Demo</span>
                         <ArrowRight size={16} className="ft-cta-arrow" />
                     </button>

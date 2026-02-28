@@ -49,7 +49,14 @@ const Integrations = () => {
                         <div className="marquee-track">
                             {loopedBanks.map((bank, index) => (
                                 <div key={`${bank.name}-${index}`} className="app-item">
-                                    <div className="app-card" style={{ backgroundColor: '#ffffff', padding: '10px' }}>
+                                    <div
+                                        className="app-card"
+                                        style={{ backgroundColor: '#ffffff', padding: '10px', cursor: 'pointer' }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.dispatchEvent(new Event('openIntegrationModal'));
+                                        }}
+                                    >
                                         <div className="app-logo" style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             <BankLogo
                                                 src={bank.logo}
@@ -64,7 +71,16 @@ const Integrations = () => {
                         </div>
                     </div>
 
-                    <a href="#integrations" className="more-link">More Integrations</a>
+                    <a
+                        href="#integrations"
+                        className="more-link"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.dispatchEvent(new Event('openIntegrationModal'));
+                        }}
+                    >
+                        More Integrations
+                    </a>
                 </div>
             </div>
         </section>

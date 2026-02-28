@@ -51,11 +51,15 @@ const Navbar = () => {
                 </div>
 
                 <div className="nav-actions">
-                    <Link to="/contact">
-                        <button className="btn btn-default demo-btn">
-                            Schedule a Demo <span className="arrow">→</span>
-                        </button>
-                    </Link>
+                    <button
+                        className="btn btn-default demo-btn"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.dispatchEvent(new Event('openDemoModal'));
+                        }}
+                    >
+                        Schedule a Demo <span className="arrow">→</span>
+                    </button>
                     <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         {isMobileMenuOpen ? <X /> : <Menu />}
                     </button>

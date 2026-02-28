@@ -1,0 +1,340 @@
+/* PricingModal.css */
+.pricing-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(10, 15, 30, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pmFadeIn 0.35s ease-out forwards;
+    padding: 1rem;
+}
+
+.pricing-modal-overlay.closing {
+    animation: pmFadeOut 0.5s ease forwards;
+}
+
+.pricing-modal-content {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.85) 100%);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    width: 100%;
+    max-width: 560px;
+    border-radius: 32px;
+    padding: 3.5rem 3rem;
+    position: relative;
+    box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.15),
+        0 0 0 1px inset rgba(255, 255, 255, 0.9),
+        0 20px 40px rgba(99, 102, 241, 0.15);
+    /* Subtle purple glow */
+    transform-origin: bottom center;
+    overflow: hidden;
+    /* Contains the inner glows */
+}
+
+/* Inner Glow Orbs */
+.pm-inner-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+    opacity: 0.6;
+    animation: pmFloatOrbs 8s ease-in-out infinite alternate;
+}
+
+.pm-glow-1 {
+    width: 250px;
+    height: 250px;
+    background: rgba(99, 102, 241, 0.4);
+    top: -50px;
+    left: -50px;
+}
+
+.pm-glow-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(236, 72, 153, 0.3);
+    bottom: -80px;
+    right: -50px;
+    animation-delay: -4s;
+}
+
+@keyframes pmFloatOrbs {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        transform: translateY(30px) scale(1.1);
+    }
+}
+
+.pricing-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: #f1f5f9;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pricing-modal-close:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    transform: rotate(90deg);
+}
+
+.pricing-modal-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.pm-gradient-text {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #d946ef 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.pricing-modal-header p {
+    color: #64748b;
+    font-size: 1.05rem;
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.pricing-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.pricing-field-row {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.pricing-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.pricing-field label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-left: 0.25rem;
+}
+
+.pricing-field label svg {
+    color: #ec4899;
+    /* Pink accent for icons */
+}
+
+.pricing-field input,
+.pricing-field select {
+    padding: 0.9rem 1.25rem;
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
+    border-radius: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255, 255, 255, 0.7);
+    /* translucent glass input */
+    color: #0f172a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02) inset;
+    backdrop-filter: blur(8px);
+}
+
+.pricing-field input:focus,
+.pricing-field select:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), 0 8px 20px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+}
+
+.pricing-modal-submit {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3), 0 0 0 1px inset rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-modal-submit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: skewX(-20deg);
+    animation: pmShine 3s infinite;
+}
+
+@keyframes pmShine {
+    0% {
+        left: -100%;
+    }
+
+    20% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+.pricing-modal-submit:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 25px rgba(236, 72, 153, 0.35);
+}
+
+.pricing-modal-success {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.success-icon {
+    color: #10b981;
+    margin-bottom: 1rem;
+    animation: pmScaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.pricing-modal-success h3 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+}
+
+.pricing-modal-success p {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Animations (MacOS Genie inspired) */
+@keyframes pmFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pmFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.opening-genie {
+    animation: pmGenieIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.closing-genie {
+    animation: pmGenieOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes pmGenieIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.2) translateY(200px);
+        filter: blur(10px);
+        border-radius: 50%;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+        border-radius: 24px;
+    }
+}
+
+@keyframes pmGenieOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        border-radius: 24px;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.1) translateY(300px);
+        filter: blur(10px);
+        border-radius: 50%;
+    }
+}
+
+@keyframes pmScaleIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 640px) {
+    .pricing-field-row {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .pricing-modal-content {
+        padding: 2.5rem 1.5rem;
+        border-radius: 20px;
+    }
+}
