@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import logoImage from '../assets/logo.png';
+import logoImage from '../assets/bireena_tallyx_logo.png';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);

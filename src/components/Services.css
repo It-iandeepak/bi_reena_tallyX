@@ -188,36 +188,71 @@
     justify-content: center;
     gap: 0.5rem;
 
-    /* Pink color based on user request */
-    background: #e6397c;
+    /* Unique animated aurora gradient */
+    background: linear-gradient(45deg, #4f46e5, #9333ea, #ec4899, #f43f5e);
+    background-size: 300% 300%;
+    animation: gradientShiftServices 6s ease infinite;
+
     color: #ffffff;
     font-weight: 600;
     font-size: 0.95rem;
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 2.25rem;
     border-radius: 50px;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-    /* Deep pink elegant shadow */
-    box-shadow: 0 6px 15px rgba(230, 57, 124, 0.35);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 20px rgba(147, 51, 234, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2);
     margin-top: auto;
     margin-left: 0;
-    /* Left align button */
     width: fit-content;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    z-index: 1;
+}
+
+@keyframes gradientShiftServices {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Shine Effect */
+.services-card-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.6s ease;
+    z-index: -1;
 }
 
 .services-card-btn:hover {
-    box-shadow: 0 10px 25px rgba(230, 57, 124, 0.45);
-    transform: translateY(-2px);
-    background: #d42767;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(236, 72, 153, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.services-card-btn:hover::after {
+    left: 150%;
 }
 
 .services-card-btn svg {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .services-card-btn:hover svg {
-    transform: translateX(4px);
+    transform: translateX(6px) scale(1.1);
 }
 
 /* Responsive */
