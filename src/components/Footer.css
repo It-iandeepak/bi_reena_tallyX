@@ -45,25 +45,34 @@
 }
 
 .ft-logo-row {
-    display: inline-flex;
+    display: flex;
+    /* Changed from inline-flex to properly hold width */
     align-items: center;
-    justify-content: center;
-    margin-bottom: 0.8rem;
-    background: #ffffff;
-    height: 48px;
+    justify-content: flex-start;
+    /* Align left */
+    margin-bottom: 1.2rem;
+    background: transparent;
+    height: 60px;
+    /* Allow more breathing room */
     border-radius: 8px;
     overflow: hidden;
-    /* Mask out the massive vertical white padding */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 0 10px;
+    padding: 0;
 }
 
 .ft-logo-img {
-    height: 190px;
-    width: auto;
+    height: 50px;
+    /* Adjust for horizontal logo */
+    max-width: 100%;
     object-fit: contain;
     display: block;
-    mix-blend-mode: multiply;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    /* Darker shadow for dark bg */
+}
+
+.ft-logo-img:hover {
+    transform: translateY(-2px) scale(1.03);
+    filter: drop-shadow(0 8px 20px rgba(49, 46, 129, 0.6)) drop-shadow(0 0 25px rgba(236, 72, 153, 0.4));
 }
 
 .ft-tagline {

@@ -21,7 +21,6 @@ const HomePage = () => {
             <AICopilot />
             <WhyChooseUs />
             <Services />
-            <MobileApp />
             <Features />
             <FullPageSlider />
             <Pricing compact={true} />

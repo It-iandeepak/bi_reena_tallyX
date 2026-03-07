@@ -8,6 +8,9 @@ import {
 import './About.css';
 import newTeamImage from '../assets/new_team.png';
 import aboutImg from '../assets/about-fintech.png';
+import reenaContactImg from '../assets/reena_contact.png';
+import ankitImg from '../assets/ankit.png';
+import nehaImg from '../assets/neha.png';
 
 const About = () => {
 
@@ -29,24 +32,28 @@ const About = () => {
 
     const team = [
         {
-            name: "Rajesh Kumar", role: "Founder & CEO", accent: "ab-orange",
-            bio: "Visionary fintech leader with 15+ years building India's top accounting platforms.",
-            photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+            name: "Deepika Singh", role: "Founder & Director", accent: "ab-orange",
+            bio: "Driving organizational growth through vision, execution, and innovation. Focused on long-term value creation and building high-performance teams.",
+            photo: reenaContactImg,
+            linkedin: "https://www.linkedin.com/in/bireena-info-tech-a975533a1/"
         },
         {
-            name: "Priya Sharma", role: "Chief Technology Officer", accent: "ab-pink",
-            bio: "Ex-Google architect specializing in scalable cloud-native SaaS infrastructure.",
-            photo: newTeamImage
+            name: "Chhotu Kumar", role: "Full Stack Developer", accent: "ab-pink",
+            bio: "Building scalable web applications with React & Firebase. Passionate about problem solving and clean code.",
+            photo: newTeamImage,
+            linkedin: "https://www.linkedin.com/in/chhotu-kumar-b9443628b/"
         },
         {
-            name: "Ankit Verma", role: "VP of Product", accent: "ab-purple",
-            bio: "Product strategist who has shipped tools used by 500K+ SMBs across Asia.",
-            photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+            name: "Deepak Kumar", role: "Full Stack Developer", accent: "ab-indigo",
+            bio: "Building scalable web applications with React & Firebase. Passionate about problem solving and clean code.",
+            photo: nehaImg,
+            linkedin: "https://www.linkedin.com/in/deepak-kumar-18999232b/"
         },
         {
-            name: "Neha Patel", role: "Head of Design", accent: "ab-indigo",
-            bio: "Award-winning UX designer obsessed with turning complexity into simplicity.",
-            photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face"
+            name: "Santosh Kumar", role: "Full Stack Developer", accent: "ab-purple",
+            bio: "Building scalable web applications with React & Firebase. Passionate about problem solving and clean code.",
+            photo: ankitImg,
+            linkedin: "https://www.linkedin.com/in/santosh-kumar-8aa89338b/?originalSubdomain=in"
         }
     ];
 
@@ -227,7 +234,7 @@ const About = () => {
                                 <h4 className="ab-team-name">{m.name}</h4>
                                 <span className="ab-team-role">{m.role}</span>
                                 <p className="ab-team-bio">{m.bio}</p>
-                                <a href="#" className={`ab-team-social ${m.accent}`} aria-label={`${m.name} LinkedIn`}>
+                                <a href={m.linkedin || "#"} target={m.linkedin ? "_blank" : "_self"} rel={m.linkedin ? "noopener noreferrer" : undefined} className={`ab-team-social ${m.accent}`} aria-label={`${m.name} LinkedIn`}>
                                     <Linkedin size={15} />
                                 </a>
                             </div>
