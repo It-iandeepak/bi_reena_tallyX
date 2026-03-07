@@ -1,6 +1,6 @@
 .slider-page-wrapper {
     width: 100%;
-    background-color: #eaf1f1;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #f1f0fb 100%);
     padding: 2.5rem 0;
     position: relative;
     overflow: hidden;
@@ -36,6 +36,7 @@
     aspect-ratio: 16 / 8.5;
     /* Wider aspect ratio crops the bottom white space */
     display: block;
+    background-color: aqua;
     border-radius: 20px;
     object-fit: cover;
     object-position: center top;
