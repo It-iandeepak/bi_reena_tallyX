@@ -1,0 +1,343 @@
+/* WhyChooseUsModal.css - Vibrant Gradient Glassmorphism with MacOS Genie Animation */
+
+.wcu-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(15px);
+    /* Strong frosted blur */
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: wcuFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.wcu-modal-overlay.closing {
+    animation: wcuFadeOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.wcu-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%);
+    border-radius: 28px;
+    width: 90%;
+    max-width: 580px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transform-origin: bottom center;
+    /* Mac OS genie effect anchor */
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.wcu-modal-content.opening-genie {
+    animation: wcuGenieIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.wcu-modal-content.closing-genie {
+    animation: wcuGenieOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes wcuFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes wcuFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes wcuGenieIn {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateY(500px) scaleX(0.5);
+        border-radius: 50%;
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-20px) scaleX(1.05);
+        border-radius: 20px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) scaleX(1);
+        border-radius: 28px;
+    }
+}
+
+@keyframes wcuGenieOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(400px) scaleX(0.5);
+    }
+}
+
+/* Close Area */
+.wcu-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: #f1f5f9;
+    border: 1px solid transparent;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.wcu-modal-close:hover {
+    background: #ef4444;
+    /* Mac Red */
+    color: #ffffff;
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* Header */
+.wcu-modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.wcu-icon-bounce {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffedd5 0%, #fce7f3 100%);
+    color: #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: wcuIconBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes wcuIconBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.wcu-modal-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.wcu-text-gradient {
+    /* Bold orange to purple to pink for maximum wow factor */
+    background: linear-gradient(135deg, #f97316 0%, #d946ef 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.wcu-modal-header p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Form Styles */
+.wcu-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.wcu-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.wcu-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.wcu-field label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wcu-field label svg {
+    color: #d946ef;
+}
+
+.wcu-field input,
+.wcu-field select {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1e293b;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.wcu-field input:focus,
+.wcu-field select:focus {
+    border-color: #d946ef;
+    box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.15);
+}
+
+.wcu-field input::placeholder {
+    color: #cbd5e1;
+}
+
+.wcu-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d946ef' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Submit Button */
+.wcu-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.2rem 2rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f97316 0%, #d946ef 100%);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 25px rgba(217, 70, 239, 0.3);
+}
+
+.wcu-modal-submit:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(217, 70, 239, 0.45);
+}
+
+.wcu-modal-submit.submitting {
+    opacity: 0.8;
+    cursor: wait;
+}
+
+.wcu-btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.wcu-modal-submit:hover .wcu-btn-icon {
+    transform: translateX(4px);
+}
+
+/* Success State */
+.wcu-success-state {
+    text-align: center;
+    padding: 2.5rem 0;
+    animation: wcuFadeIn 0.5s ease forwards;
+}
+
+.wcu-success-icon {
+    color: #10b981;
+    margin-bottom: 1.5rem;
+    animation: wcuBounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes wcuBounceIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.wcu-success-state h3 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+}
+
+.wcu-success-state p {
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.success-btn {
+    background: #0f172a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.success-btn:hover {
+    background: #1e293b;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .wcu-field-row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .wcu-modal-content {
+        padding: 2.5rem 1.5rem;
+    }
+}

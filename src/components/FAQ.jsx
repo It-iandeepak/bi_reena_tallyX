@@ -43,44 +43,48 @@ const FAQ = () => {
     ];
 
     return (
-        <section className="faq-section container">
-            <div className="faq-main-wrapper">
-                <div className="faq-header">
-                    <h2 className="faq-title">Frequently Asked Questions.</h2>
-                    <div className="support-team">
-                        <span className="support-label">Support Team</span>
-                        <img loading="lazy" decoding="async" className="alignnone size-full wp-image-985" src={supportTeamImg} alt="Support Team" width="93" height="44" title="Home 26" />
+        <section className="faq-section">
+            <div className="container">
+                <div className="faq-main-wrapper">
+                    <div className="faq-header">
+                        <h2 className="faq-title">Frequently Asked Questions.</h2>
+                        <div className="support-team">
+                            <span className="support-label">Support Team</span>
+                            <img loading="lazy" decoding="async" className="alignnone size-full wp-image-985" src={supportTeamImg} alt="Support Team" width="93" height="44" title="Home 26" />
+                        </div>
+                    </div>
+
+                    <div className="faq-container" style={{ position: 'relative' }}>
+                        <div className="faq-list">
+                            {faqItems.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className={`faq-item ${activeIndex === index ? 'active' : ''}`}
+                                    onClick={() => toggleFAQ(index)}
+                                >
+                                    <div className="faq-item-content">
+                                        <h3 className="faq-question">{item.question}</h3>
+                                        <div className="faq-icon-btn">
+                                            {activeIndex === index ? (
+                                                <Minus size={20} />
+                                            ) : (
+                                                <Plus size={20} />
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="faq-answer">
+                                        <p>{item.answer}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                <div className="faq-container" style={{ position: 'relative' }}>
-                    <div className="faq-list">
-                        {faqItems.map((item, index) => (
-                            <div
-                                key={index}
-                                className={`faq-item ${activeIndex === index ? 'active' : ''}`}
-                                onClick={() => toggleFAQ(index)}
-                            >
-                                <div className="faq-item-content">
-                                    <h3 className="faq-question">{item.question}</h3>
-                                    {activeIndex === index ? (
-                                        <Minus className="faq-icon" />
-                                    ) : (
-                                        <Plus className="faq-icon" />
-                                    )}
-                                </div>
-                                <div className="faq-answer">
-                                    <p>{item.answer}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                {/* "We Are Here" sticker simulation - Visual flair */}
+
+
             </div>
-
-            {/* "We Are Here" sticker simulation - Visual flair */}
-
-
         </section>
     );
 };

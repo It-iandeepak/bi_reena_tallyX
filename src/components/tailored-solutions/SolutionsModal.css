@@ -1,0 +1,342 @@
+/* SolutionsModal.css - Crystal Clear Glassmorphism + MacOS Genie Apple Effect */
+
+.sol-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(14px);
+    /* Very frosty macos background */
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: solFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sol-modal-overlay.closing {
+    animation: solFadeOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sol-modal-content {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
+    border-radius: 28px;
+    width: 90%;
+    max-width: 550px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transform-origin: bottom center;
+    /* Mac OS genie origin point */
+    font-family: var(--font-main, 'Inter', sans-serif);
+}
+
+.sol-modal-content.opening-genie {
+    animation: genieIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.sol-modal-content.closing-genie {
+    animation: genieOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes solFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes solFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes genieIn {
+    0% {
+        opacity: 0;
+        transform: scale(0) translateY(500px) scaleX(0.5);
+        /* Squeezed into bottom */
+        border-radius: 50%;
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-20px) scaleX(1.05);
+        /* Elastic overshoot */
+        border-radius: 20px;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) scaleX(1);
+        border-radius: 28px;
+    }
+}
+
+@keyframes genieOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(400px) scaleX(0.5);
+        /* Sucked downwards */
+    }
+}
+
+/* Close button - Left aligned for Mac vibe */
+.sol-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: #f1f5f9;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.sol-modal-close:hover {
+    background: #ef4444;
+    /* Destructive red */
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* Header */
+.sol-modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sol-icon-bounce {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: iconBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.sol-modal-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.sol-text-gradient {
+    background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sol-modal-header p {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+}
+
+/* Form Styles */
+.sol-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.sol-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.sol-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.sol-field label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sol-field label svg {
+    color: #4f46e5;
+}
+
+.sol-field input,
+.sol-field select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1e293b;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.sol-field input:focus,
+.sol-field select:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.sol-field input::placeholder {
+    color: #cbd5e1;
+}
+
+.sol-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Submit Button */
+.sol-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4f46e5 0%, #db2777 100%);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 20px rgba(219, 39, 119, 0.25);
+}
+
+.sol-modal-submit:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(219, 39, 119, 0.35);
+}
+
+.sol-modal-submit.submitting {
+    opacity: 0.8;
+    cursor: wait;
+}
+
+.sol-btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.sol-modal-submit:hover .sol-btn-icon {
+    transform: translateX(4px);
+}
+
+/* Success State */
+.sol-success-state {
+    text-align: center;
+    padding: 2rem 0;
+    animation: solFadeIn 0.5s ease forwards;
+}
+
+.sol-success-icon {
+    color: #22c55e;
+    margin-bottom: 1rem;
+    animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.sol-success-state h3 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+}
+
+.sol-success-state p {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.success-btn {
+    background: #0f172a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.success-btn:hover {
+    background: #1e293b;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .sol-field-row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .sol-modal-content {
+        padding: 2.5rem 1.5rem;
+    }
+}

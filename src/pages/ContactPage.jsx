@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, ArrowRight, Sparkles, CheckCircle2, MonitorPlay } from 'lucide-react';
 import Layout from '../components/Layout';
 import './ContactPage.css';
 
@@ -40,6 +40,13 @@ const ContactPage = () => {
             detail: "Mon – Saturday",
             sub: "9:00 AM – 7:00 PM IST",
             accent: "ct-indigo"
+        },
+        {
+            icon: <MonitorPlay size={22} />,
+            title: "Live Software Demo",
+            detail: "Request a Free Tour",
+            sub: "Experience smart accounting features",
+            accent: "ct-blue"
         }
     ];
 

@@ -1,0 +1,307 @@
+/* TrialModal.css - Vibrant Dark Glassmorphism with MacOS Genie Animation */
+
+.trial-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 17, 32, 0.6);
+    backdrop-filter: blur(15px);
+    /* Strong blur for MacOS effect */
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: trialFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.trial-modal-overlay.closing {
+    animation: trialFadeOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.trial-modal-content {
+    background: rgba(15, 23, 42, 0.7);
+    border-radius: 28px;
+    width: 90%;
+    max-width: 580px;
+    padding: 3rem;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-origin: bottom center;
+    /* Animation origin for Mac OS genie style */
+    font-family: var(--font-main, 'Inter', sans-serif);
+    overflow: hidden;
+    /* For inner glow orbs */
+}
+
+/* Neon Glow Orbs Inside Modal */
+.trial-glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orb-orange {
+    width: 300px;
+    height: 300px;
+    background: #fb923c;
+    top: -50px;
+    right: -50px;
+    animation: trialOrbPulse 6s infinite alternate;
+}
+
+.orb-purple {
+    width: 250px;
+    height: 250px;
+    background: #a855f7;
+    bottom: -50px;
+    left: -50px;
+    animation: trialOrbPulse 8s infinite alternate-reverse;
+}
+
+@keyframes trialOrbPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0.4;
+    }
+}
+
+.trial-modal-content.opening-genie {
+    animation: genieIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+}
+
+.trial-modal-content.closing-genie {
+    animation: genieOut 0.5s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes trialFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes trialFadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Close button - Left aligned like Mac OS window controls */
+.trial-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    /* Different from Demo (right) to feel more native Apple */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.trial-modal-close:hover {
+    background: #ef4444;
+    /* Red close button like Mac */
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+/* Header */
+.trial-modal-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.trial-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.1);
+    padding: 0.4rem 1.25rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(251, 146, 60, 0.2);
+}
+
+.trial-modal-header h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.trial-text-gradient {
+    background: linear-gradient(135deg, #fb923c 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.trial-modal-header p {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* Form Styles */
+.trial-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 2;
+}
+
+.trial-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.trial-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trial-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.trial-field label svg {
+    color: #fb923c;
+}
+
+.trial-field input,
+.trial-field select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    font-family: inherit;
+    color: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.trial-field input:focus,
+.trial-field select:focus {
+    border-color: #fb923c;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.15);
+}
+
+.trial-field input::placeholder {
+    color: #475569;
+}
+
+.trial-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 2.5rem;
+}
+
+.trial-field select option {
+    background: #0f172a;
+    color: #fff;
+}
+
+/* Submit Button */
+.trial-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.1rem 2rem;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 25px rgba(251, 146, 60, 0.3);
+}
+
+.trial-modal-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(251, 146, 60, 0.4);
+    background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
+}
+
+.trial-btn-icon {
+    transition: transform 0.3s ease;
+}
+
+.trial-modal-submit:hover .trial-btn-icon {
+    transform: translateX(4px);
+}
+
+.trial-terms {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .trial-field-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .trial-modal-content {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .trial-modal-header h2 {
+        font-size: 1.8rem;
+    }
+}

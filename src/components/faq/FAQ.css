@@ -1,10 +1,11 @@
-/* FAQ Section Styles */
 .faq-section {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding-top: 6rem;
+    padding-bottom: 7rem;
     position: relative;
-    background-color: #fff;
+    background: linear-gradient(180deg, #fafbff 0%, #eef2ff 100%);
     color: #000;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
 }
 
 .faq-header {
@@ -20,11 +21,10 @@
 }
 
 .faq-title {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 800;
-    color: #0f172a;
-    /* Dark slate */
-    letter-spacing: -1px;
+    color: #0b1121;
+    letter-spacing: -1.5px;
     line-height: 1.1;
     max-width: 800px;
 }
@@ -63,40 +63,80 @@
 }
 
 
-/* FAQ List */
+/* FAQ List and Unique Floating Card Items */
 .faq-list {
     position: relative;
-
-    /* Space for scroll indicator */
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
 .faq-item {
-    border-bottom: 1px solid #e2e8f0;
-    padding: 1.5rem 0;
+    background: #ffffff;
+    border: 1px solid #eef2ff;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.faq-item:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 16px 30px -5px rgba(99, 102, 241, 0.1);
+    transform: translateY(-4px);
+}
+
+.faq-item.active {
+    border-color: #4f46e5;
+    background: #fafbff;
+    box-shadow: 0 12px 25px -5px rgba(79, 70, 229, 0.15);
 }
 
 .faq-item-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .faq-question {
     font-size: 1.15rem;
     font-weight: 700;
     color: #0f172a;
+    transition: color 0.3s ease;
 }
 
-.faq-icon {
-    color: #8b5cf6;
-    /* Purple/Blue from image */
-    transition: transform 0.3s ease;
+.faq-item:hover .faq-question,
+.faq-item.active .faq-question {
+    color: #4f46e5;
 }
 
-.faq-icon.open {
-    transform: rotate(45deg);
+/* Unique Hovering Plus/Minus Icon Button */
+.faq-icon-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item:hover .faq-icon-btn {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
+    color: #ffffff;
+    transform: rotate(90deg) scale(1.05);
+}
+
+.faq-item.active .faq-icon-btn {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
+    color: #ffffff;
+    transform: rotate(180deg);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
 /* Specific styling for the slider element in the 2nd item */

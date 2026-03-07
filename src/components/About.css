@@ -876,8 +876,25 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    background: #f8fafc;
+    object-position: top center;
     display: block;
+    background: var(--bg-fallback, #f8fafc);
+}
+
+.ab-team-card.ab-orange .ab-team-img {
+    background: radial-gradient(circle at top right, #ffedd5, #fff7ed);
+}
+
+.ab-team-card.ab-pink .ab-team-img {
+    background: radial-gradient(circle at top right, #fce7f3, #fdf2f8);
+}
+
+.ab-team-card.ab-purple .ab-team-img {
+    background: radial-gradient(circle at top right, #f3e8ff, #faf5ff);
+}
+
+.ab-team-card.ab-indigo .ab-team-img {
+    background: radial-gradient(circle at top right, #e0e7ff, #eef2ff);
 }
 
 .ab-team-name {

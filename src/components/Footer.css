@@ -46,39 +46,33 @@
 
 .ft-logo-row {
     display: flex;
+    /* Changed from inline-flex to properly hold width */
     align-items: center;
-    gap: 0.65rem;
-    margin-bottom: 0.6rem;
+    justify-content: flex-start;
+    /* Align left */
+    margin-bottom: 1.2rem;
+    background: transparent;
+    height: 60px;
+    /* Allow more breathing room */
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
 }
 
-.ft-logo-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #8b5cf6 100%);
-    color: #ffffff;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    font-size: 1.6rem;
-    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+.ft-logo-img {
+    height: 50px;
+    /* Adjust for horizontal logo */
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    /* Darker shadow for dark bg */
 }
 
-.ft-logo-icon:hover {
-    transform: scale(1.1) rotate(-5deg);
-    box-shadow: 0 8px 30px rgba(236, 72, 153, 0.4);
-}
-
-.ft-logo-name {
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    background: linear-gradient(135deg, #fb923c, #ec4899, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.ft-logo-img:hover {
+    transform: translateY(-2px) scale(1.03);
+    filter: drop-shadow(0 8px 20px rgba(49, 46, 129, 0.6)) drop-shadow(0 0 25px rgba(236, 72, 153, 0.4));
 }
 
 .ft-tagline {

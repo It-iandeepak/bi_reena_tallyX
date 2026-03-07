@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Linkedin, Youtube, ArrowRight, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import './Footer.css';
+import logoImage from '../assets/bireena_tallyx_logo.png';
 
 const Footer = () => {
     return (
@@ -11,8 +12,7 @@ const Footer = () => {
                 <div className="ft-top">
                     <div className="ft-brand">
                         <div className="ft-logo-row">
-                            <div className="ft-logo-icon">B</div>
-                            <span className="ft-logo-name">BiReenaTellyX</span>
+                            <img src={logoImage} alt="BiReenaTellyX" className="ft-logo-img" />
                         </div>
                         <p className="ft-tagline">Simple. Secure. Tailored.</p>
                         <div className="ft-social-row">
@@ -75,7 +75,7 @@ const Footer = () => {
                             Cost-Effective, Customizable, Streamlined, Accounting Software.
                         </h2>
                     </div>
-                    <button className="ft-cta-btn">
+                    <button className="ft-cta-btn" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openDemoModal')); }}>
                         <span>Book a Demo</span>
                         <ArrowRight size={16} className="ft-cta-arrow" />
                     </button>

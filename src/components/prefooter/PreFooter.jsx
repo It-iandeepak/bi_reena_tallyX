@@ -53,7 +53,15 @@ const PreFooter = () => {
                             </div>
                             <h3 className="pf-card-title">{card.title}</h3>
                             <p className="pf-card-desc">{card.desc}</p>
-                            <a href={card.href} className="pf-card-btn">
+                            <a href={card.href} className="pf-card-btn" onClick={(e) => {
+                                if (card.btnText === "Book a Demo") {
+                                    e.preventDefault();
+                                    window.dispatchEvent(new Event('openDemoModal'));
+                                } else if (card.btnText === "Start Free Trial") {
+                                    e.preventDefault();
+                                    window.dispatchEvent(new Event('openTrialModal'));
+                                }
+                            }}>
                                 <span>{card.btnText}</span>
                                 <ArrowRight size={16} className="pf-btn-arrow" />
                             </a>
