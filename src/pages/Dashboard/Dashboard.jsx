@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
-import logoImage from '../../assets/logo_light.png';
+import logoImage from '../../assets/logo_pink_light.png';
 
 const Dashboard = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
