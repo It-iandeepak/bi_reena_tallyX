@@ -21,16 +21,68 @@ const Dashboard = () => {
   const storedCompany = localStorage.getItem('tallyx_company_name');
   const [user, setUser] = useState({ name: 'Admin User', email: 'admin@bireena.com', initials: 'AD', companyName: storedCompany || '' });
   
+  // Groups State
+  const [groupsList, setGroupsList] = useState([
+    { name: 'Sundry Debtors', parent: 'Primary' },
+    { name: 'Sundry Creditors', parent: 'Primary' },
+    { name: 'Direct Incomes', parent: 'Primary' },
+    { name: 'Indirect Incomes', parent: 'Primary' },
+    { name: 'Direct Expenses', parent: 'Primary' },
+    { name: 'Indirect Expenses', parent: 'Primary' },
+    { name: 'Bank Accounts', parent: 'Primary' },
+    { name: 'Cash-in-hand', parent: 'Primary' },
+    { name: 'Loans & Liabilities', parent: 'Primary' },
+    { name: 'Reserves & Surplus', parent: 'Primary' },
+    { name: 'Capital Account', parent: 'Primary' },
+    { name: 'Fixed Assets', parent: 'Primary' },
+    { name: 'Investments', parent: 'Primary' },
+    { name: 'Current Assets', parent: 'Primary' },
+    { name: 'Current Liabilities', parent: 'Primary' }
+  ]);
+
+  const [groupForm, setGroupForm] = useState({
+    name: '',
+    parent: 'Primary'
+  });
+
+  const [multiGroupForm, setMultiGroupForm] = useState([
+    { name: '', parent: 'Primary' },
+    { name: '', parent: 'Primary' },
+    { name: '', parent: 'Primary' }
+  ]);
+
+  const [alterGroupSelect, setAlterGroupSelect] = useState('');
+  const [alterGroupForm, setAlterGroupForm] = useState({
+    name: '',
+    parent: 'Primary'
+  });
+
+  const [groupsMenuSelectedIdx, setGroupsMenuSelectedIdx] = useState(0);
+  const [ledgersMenuSelectedIdx, setLedgersMenuSelectedIdx] = useState(0);
+  const [voucherTypesMenuSelectedIdx, setVoucherTypesMenuSelectedIdx] = useState(0);
+
+  const [groupSearchQuery, setGroupSearchQuery] = useState('');
+  const [selectedGroupDisplay, setSelectedGroupDisplay] = useState(null);
+  const [multiGroupAlterList, setMultiGroupAlterList] = useState([]);
+
+  useEffect(() => {
+    if (activeTab === 'MULTI_GROUP_ALTER') {
+      setMultiGroupAlterList([...groupsList]);
+    }
+  }, [activeTab]);
+
   // Refs for auto-focusing primary inputs
   const companyNameRef = useRef(null);
   const ledgerNameRef = useRef(null);
   const stockNameRef = useRef(null);
+  const groupNameRef = useRef(null);
 
   // Auto-focus logic when activeTab changes
   useEffect(() => {
     if (activeTab === 'COMPANY') { setTimeout(() => companyNameRef.current?.focus(), 100); }
-    else if (activeTab === 'LEDGER') { setTimeout(() => ledgerNameRef.current?.focus(), 100); }
+    else if (activeTab === 'LEDGER_CREATE') { setTimeout(() => ledgerNameRef.current?.focus(), 100); }
     else if (activeTab === 'STOCK') { setTimeout(() => stockNameRef.current?.focus(), 100); }
+    else if (activeTab === 'GROUP_CREATE') { setTimeout(() => groupNameRef.current?.focus(), 100); }
   }, [activeTab]);
 
   // Company Form State
@@ -111,7 +163,129 @@ const Dashboard = () => {
 
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
       
-      if (key === 'Escape') { setActiveTab('DASHBOARD'); return; }
+      if (key === 'Escape') {
+        if (['GROUP_CREATE', 'GROUP_DISPLAY', 'GROUP_ALTER', 'MULTI_GROUP_CREATE', 'MULTI_GROUP_DISPLAY', 'MULTI_GROUP_ALTER'].includes(activeTab)) {
+          setActiveTab('GROUPS');
+        } else if (['LEDGER_CREATE', 'LEDGER_DISPLAY', 'LEDGER_ALTER', 'MULTI_LEDGER_CREATE', 'MULTI_LEDGER_DISPLAY', 'MULTI_LEDGER_ALTER'].includes(activeTab)) {
+          setActiveTab('LEDGER');
+        } else if (['VT_CREATE', 'VT_DISPLAY', 'VT_ALTER', 'MULTI_VT_CREATE', 'MULTI_VT_DISPLAY', 'MULTI_VT_ALTER'].includes(activeTab)) {
+          setActiveTab('VOUCHER_TYPES');
+        } else {
+          setActiveTab('DASHBOARD');
+        }
+        return;
+      }
+
+      // Groups Menu navigation & shortcuts
+      if (activeTab === 'GROUPS') {
+        if (key === 'ArrowDown') {
+          e.preventDefault();
+          setGroupsMenuSelectedIdx(prev => (prev + 1) % 7);
+          return;
+        }
+        if (key === 'ArrowUp') {
+          e.preventDefault();
+          setGroupsMenuSelectedIdx(prev => (prev - 1 + 7) % 7);
+          return;
+        }
+        if (key === 'Enter') {
+          e.preventDefault();
+          const tabs = [
+            'GROUP_CREATE',
+            'GROUP_DISPLAY',
+            'GROUP_ALTER',
+            'MULTI_GROUP_CREATE',
+            'MULTI_GROUP_DISPLAY',
+            'MULTI_GROUP_ALTER',
+            'DASHBOARD'
+          ];
+          setActiveTab(tabs[groupsMenuSelectedIdx]);
+          return;
+        }
+        if (!e.ctrlKey && !e.altKey) {
+          const k = key.toLowerCase();
+          if (k === 'c') { e.preventDefault(); setActiveTab('GROUP_CREATE'); return; }
+          if (k === 'd') { e.preventDefault(); setActiveTab('GROUP_DISPLAY'); return; }
+          if (k === 'a') { e.preventDefault(); setActiveTab('GROUP_ALTER'); return; }
+          if (k === 'r') { e.preventDefault(); setActiveTab('MULTI_GROUP_CREATE'); return; }
+          if (k === 'i') { e.preventDefault(); setActiveTab('MULTI_GROUP_DISPLAY'); return; }
+          if (k === 'l') { e.preventDefault(); setActiveTab('MULTI_GROUP_ALTER'); return; }
+          if (k === 'q') { e.preventDefault(); setActiveTab('DASHBOARD'); return; }
+        }
+      }
+
+      // Ledgers Menu navigation & shortcuts
+      if (activeTab === 'LEDGER') {
+        if (key === 'ArrowDown') {
+          e.preventDefault();
+          setLedgersMenuSelectedIdx(prev => (prev + 1) % 7);
+          return;
+        }
+        if (key === 'ArrowUp') {
+          e.preventDefault();
+          setLedgersMenuSelectedIdx(prev => (prev - 1 + 7) % 7);
+          return;
+        }
+        if (key === 'Enter') {
+          e.preventDefault();
+          const tabs = [
+            'LEDGER_CREATE',
+            'LEDGER_DISPLAY',
+            'LEDGER_ALTER',
+            'MULTI_LEDGER_CREATE',
+            'MULTI_LEDGER_DISPLAY',
+            'MULTI_LEDGER_ALTER',
+            'DASHBOARD'
+          ];
+          setActiveTab(tabs[ledgersMenuSelectedIdx]);
+          return;
+        }
+        if (!e.ctrlKey && !e.altKey) {
+          const k = key.toLowerCase();
+          if (k === 'c') { e.preventDefault(); setActiveTab('LEDGER_CREATE'); return; }
+          if (k === 'd') { e.preventDefault(); setActiveTab('LEDGER_DISPLAY'); return; }
+          if (k === 'a') { e.preventDefault(); setActiveTab('LEDGER_ALTER'); return; }
+          if (k === 'r') { e.preventDefault(); setActiveTab('MULTI_LEDGER_CREATE'); return; }
+          if (k === 'i') { e.preventDefault(); setActiveTab('MULTI_LEDGER_DISPLAY'); return; }
+          if (k === 'l') { e.preventDefault(); setActiveTab('MULTI_LEDGER_ALTER'); return; }
+          if (k === 'q') { e.preventDefault(); setActiveTab('DASHBOARD'); return; }
+        }
+      }
+
+      // Voucher Types Menu navigation & shortcuts
+      if (activeTab === 'VOUCHER_TYPES') {
+        if (key === 'ArrowDown') {
+          e.preventDefault();
+          setVoucherTypesMenuSelectedIdx(prev => (prev + 1) % 7);
+          return;
+        }
+        if (key === 'ArrowUp') {
+          e.preventDefault();
+          setVoucherTypesMenuSelectedIdx(prev => (prev - 1 + 7) % 7);
+          return;
+        }
+        if (key === 'Enter') {
+          e.preventDefault();
+          const tabs = [
+            'VT_CREATE', 'VT_DISPLAY', 'VT_ALTER',
+            'MULTI_VT_CREATE', 'MULTI_VT_DISPLAY', 'MULTI_VT_ALTER',
+            'DASHBOARD'
+          ];
+          setActiveTab(tabs[voucherTypesMenuSelectedIdx]);
+          return;
+        }
+        if (!e.ctrlKey && !e.altKey) {
+          const k = key.toLowerCase();
+          if (k === 'c') { e.preventDefault(); setActiveTab('VT_CREATE'); return; }
+          if (k === 'd') { e.preventDefault(); setActiveTab('VT_DISPLAY'); return; }
+          if (k === 'a') { e.preventDefault(); setActiveTab('VT_ALTER'); return; }
+          if (k === 'r') { e.preventDefault(); setActiveTab('MULTI_VT_CREATE'); return; }
+          if (k === 'i') { e.preventDefault(); setActiveTab('MULTI_VT_DISPLAY'); return; }
+          if (k === 'l') { e.preventDefault(); setActiveTab('MULTI_VT_ALTER'); return; }
+          if (k === 'q') { e.preventDefault(); setActiveTab('DASHBOARD'); return; }
+        }
+      }
+
       // Import/Export sub-shortcuts (1-6) when on IMPORT page
       if (activeTab === 'IMPORT' && !e.altKey && !e.ctrlKey) {
         if (key === '1') { document.getElementById('import-masters-xml')?.click(); return; }
@@ -152,7 +326,7 @@ const Dashboard = () => {
 
       // Contextual Ledger Shortcuts (when Ledger menu is open)
       if (openMenus.accountsInfo && !e.ctrlKey && !e.altKey) {
-        if (key.toLowerCase() === 'c') { setActiveTab('LEDGER'); return; }
+        if (key.toLowerCase() === 'c') { setActiveTab('LEDGER_CREATE'); return; }
         if (key.toLowerCase() === 'd') { setActiveTab('LEDGER_DISPLAY'); return; }
         if (key.toLowerCase() === 'a') { setActiveTab('LEDGER_ALTER'); return; }
         if (key.toLowerCase() === 'r') { setActiveTab('MULTI_LEDGER_CREATE'); return; }
@@ -163,7 +337,7 @@ const Dashboard = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeTab, companyForm, voucherForm, openMenus]); // Added openMenus to dependencies
+  }, [activeTab, companyForm, voucherForm, openMenus, groupsMenuSelectedIdx, ledgersMenuSelectedIdx, voucherTypesMenuSelectedIdx]); // Added openMenus to dependencies
 
   const fetchCompanies = async () => {
     try {
@@ -400,6 +574,90 @@ const Dashboard = () => {
       console.error('Error:', err);
       alert('Error connecting to backend');
     }
+  };
+
+  const handleGroupSubmit = (e) => {
+    if (e) e.preventDefault();
+    if (!groupForm.name.trim()) {
+      alert("Please enter a group name");
+      return;
+    }
+    const nameTrimmed = groupForm.name.trim();
+    if (groupsList.some(g => g.name.toLowerCase() === nameTrimmed.toLowerCase())) {
+      alert(`Group "${nameTrimmed}" already exists!`);
+      return;
+    }
+    const newGroup = { name: nameTrimmed, parent: groupForm.parent };
+    setGroupsList(prev => [...prev, newGroup]);
+    setSuccessMessage(`Group "${nameTrimmed}" created successfully!`);
+    setShowSuccessModal(true);
+    setGroupForm({ name: '', parent: 'Primary' });
+    setActiveTab('GROUPS');
+  };
+
+  const handleGroupAlterSubmit = (e) => {
+    if (e) e.preventDefault();
+    if (!alterGroupForm.name.trim()) {
+      alert("Please enter a group name");
+      return;
+    }
+    const nameTrimmed = alterGroupForm.name.trim();
+    const oldName = alterGroupSelect;
+    
+    setGroupsList(prev => prev.map(g => {
+      if (g.name === oldName) {
+        return { name: nameTrimmed, parent: alterGroupForm.parent };
+      }
+      return g;
+    }));
+    
+    setGroupsList(prev => prev.map(g => {
+      if (g.parent === oldName) {
+        return { ...g, parent: nameTrimmed };
+      }
+      return g;
+    }));
+
+    setSuccessMessage(`Group "${nameTrimmed}" updated successfully!`);
+    setShowSuccessModal(true);
+    setAlterGroupSelect('');
+    setActiveTab('GROUPS');
+  };
+
+  const handleMultiGroupSubmit = (e) => {
+    if (e) e.preventDefault();
+    const newGroups = multiGroupForm
+      .filter(row => row.name.trim() !== '')
+      .map(row => ({ name: row.name.trim(), parent: row.parent }));
+
+    if (newGroups.length === 0) {
+      alert("Please enter at least one group name");
+      return;
+    }
+
+    const duplicates = [];
+    const addedNames = new Set();
+    newGroups.forEach(g => {
+      if (groupsList.some(existing => existing.name.toLowerCase() === g.name.toLowerCase()) || addedNames.has(g.name.toLowerCase())) {
+        duplicates.push(g.name);
+      }
+      addedNames.add(g.name.toLowerCase());
+    });
+
+    if (duplicates.length > 0) {
+      alert(`The following groups already exist or are duplicates: ${duplicates.join(', ')}`);
+      return;
+    }
+
+    setGroupsList(prev => [...prev, ...newGroups]);
+    setSuccessMessage(`${newGroups.length} Groups created successfully!`);
+    setShowSuccessModal(true);
+    setMultiGroupForm([
+      { name: '', parent: 'Primary' },
+      { name: '', parent: 'Primary' },
+      { name: '', parent: 'Primary' }
+    ]);
+    setActiveTab('GROUPS');
   };
 
   const renderReport = () => {
@@ -775,14 +1033,14 @@ const Dashboard = () => {
           </div>
         );
 
-      case 'LEDGER':
+      case 'LEDGER_CREATE':
         return (
           <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
             <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>Ledger Creation (Account Masters)</h3>
               </div>
-              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Quit</button>
+              <button onClick={() => setActiveTab('LEDGER')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
             </div>
 
             <div style={{ boxSizing: 'border-box', maxWidth: '850px', margin: '0 auto' }}>
@@ -862,7 +1120,7 @@ const Dashboard = () => {
              <i className="fas fa-tools" style={{ fontSize: '50px', color: '#8F00CC', marginBottom: '20px', opacity: 0.3 }}></i>
              <h3 style={{ color: '#000', fontSize: '20px', fontWeight: '800' }}>{activeTab.split('_').join(' ')}</h3>
              <p style={{ color: '#636c76' }}>The <strong>{activeTab.split('_').join(' ')}</strong> module is currently being optimized for the Elite Modern interface.</p>
-             <button onClick={() => setActiveTab('LEDGER')} style={{ marginTop: '20px', background: '#8F00CC', color: '#fff', border: 'none', padding: '10px 25px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>Back to Creation</button>
+             <button onClick={() => setActiveTab('LEDGER')} style={{ marginTop: '20px', background: '#cc0000', color: '#fff', border: 'none', padding: '10px 25px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>Esc: Back</button>
           </div>
         );
 
@@ -1551,71 +1809,1087 @@ const Dashboard = () => {
 
       case 'GROUPS':
         return (
-          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
-            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '480px', margin: '30px auto', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', padding: '0', overflow: 'hidden' }}>
+            {/* Header */}
+            <div style={{ background: 'linear-gradient(135deg, #8F00CC, #a855f7)', padding: '20px 25px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}><i className="fas fa-folder" style={{ marginRight: '8px' }}></i> List of Groups</h3>
-                <p style={{ margin: '5px 0 0 0', color: '#636c76', fontSize: '13px' }}>Pre-configured Accounting Groups</p>
+                <h3 style={{ fontSize: '18px', margin: 0, fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-folder-open"></i> Groups Menu
+                </h3>
+                <p style={{ margin: '3px 0 0 0', opacity: 0.8, fontSize: '11px' }}>Gateway of Tally &gt; Accounts Info &gt; Groups</p>
               </div>
-              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
+              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', border: 'none', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '12px', transition: 'all 0.2s' }}>
+                <i className="fas fa-times"></i>
+              </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '15px' }}>
-              {[
-                'Sundry Debtors', 'Sundry Creditors', 'Direct Incomes', 'Indirect Incomes', 
-                'Direct Expenses', 'Indirect Expenses', 'Bank Accounts', 'Cash-in-hand', 
-                'Loans & Liabilities', 'Reserves & Surplus', 'Capital Account', 'Fixed Assets', 
-                'Investments', 'Current Assets', 'Current Liabilities'
-              ].map((g, idx) => (
-                <div key={idx} style={{ padding: '15px', background: '#fdfbff', border: '1px solid #efe0ff', borderRadius: '8px', fontWeight: '600', color: '#000205', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <i className="fas fa-folder" style={{ color: '#8F00CC' }}></i>
-                  <span>{g}</span>
+            {/* Menu List */}
+            <div style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Single Group Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Single Group
                 </div>
-              ))}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', hotkey: 'C', tab: 'GROUP_CREATE', idx: 0 },
+                    { label: 'Display', hotkey: 'D', tab: 'GROUP_DISPLAY', idx: 1 },
+                    { label: 'Alter', hotkey: 'A', tab: 'GROUP_ALTER', idx: 2 }
+                  ].map(item => {
+                    const isSelected = groupsMenuSelectedIdx === item.idx;
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setGroupsMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setGroupsMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit',
+                          fontSize: '14.5px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 0 && <i className="fas fa-plus-circle"></i>}
+                            {item.idx === 1 && <i className="fas fa-eye"></i>}
+                            {item.idx === 2 && <i className="fas fa-edit"></i>}
+                          </span>
+                          <span>
+                            {isSelected ? (
+                              <>
+                                <strong style={{ textDecoration: 'underline', color: '#8F00CC' }}>{item.label[0]}</strong>
+                                {item.label.slice(1)}
+                              </>
+                            ) : (
+                              <>
+                                <span style={{ color: '#8F00CC', fontWeight: '800' }}>{item.label[0]}</span>
+                                {item.label.slice(1)}
+                              </>
+                            )}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Multiple Groups Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Multiple Groups
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', hotkey: 'R', tab: 'MULTI_GROUP_CREATE', idx: 3 },
+                    { label: 'Display', hotkey: 'I', tab: 'MULTI_GROUP_DISPLAY', idx: 4 },
+                    { label: 'Alter', hotkey: 'L', tab: 'MULTI_GROUP_ALTER', idx: 5 }
+                  ].map(item => {
+                    const isSelected = groupsMenuSelectedIdx === item.idx;
+                    const hotkeyChar = item.hotkey;
+                    const labelStr = item.label;
+                    const charIdx = labelStr.toLowerCase().indexOf(hotkeyChar.toLowerCase());
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setGroupsMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setGroupsMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit',
+                          fontSize: '14.5px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 3 && <i className="fas fa-cubes"></i>}
+                            {item.idx === 4 && <i className="fas fa-list-ul"></i>}
+                            {item.idx === 5 && <i className="fas fa-sliders-h"></i>}
+                          </span>
+                          <span>
+                            {charIdx >= 0 ? (
+                              <>
+                                {labelStr.slice(0, charIdx)}
+                                <span style={{ color: '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>{labelStr[charIdx]}</span>
+                                {labelStr.slice(charIdx + 1)}
+                              </>
+                            ) : labelStr}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Separator and Quit Option */}
+              <div style={{ borderTop: '1px solid rgba(143, 0, 204, 0.08)', paddingTop: '15px' }}>
+                {(() => {
+                  const isSelected = groupsMenuSelectedIdx === 6;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => { setGroupsMenuSelectedIdx(6); setActiveTab('DASHBOARD'); }}
+                      onMouseEnter={() => setGroupsMenuSelectedIdx(6)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        padding: '12px 18px',
+                        border: isSelected ? '1.5px solid #cc0000' : '1.5px solid transparent',
+                        borderRadius: '8px',
+                        background: isSelected ? '#fff5f5' : 'transparent',
+                        color: isSelected ? '#cc0000' : '#000000',
+                        fontFamily: 'inherit',
+                        fontSize: '14.5px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        transition: 'all 0.15s ease-in-out',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: isSelected ? '#cc0000' : '#64748b', width: '20px' }}>
+                          <i className="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span>
+                          <span style={{ color: isSelected ? '#cc0000' : '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>Q</span>uit
+                        </span>
+                      </span>
+                      {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#cc0000' }}></span>}
+                    </button>
+                  );
+                })()}
+              </div>
+            </div>
+            
+            {/* Footer hint */}
+            <div style={{ background: '#f8fafc', padding: '10px 25px', borderTop: '1px solid #e2e8f0', color: '#64748b', fontSize: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Use Arrow keys &amp; Enter to navigate</span>
+              <span>Hotkeys: C, D, A, R, I, L, Q</span>
             </div>
           </div>
         );
 
-      case 'VOUCHER_TYPES':
+      case 'LEDGER':
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '480px', margin: '30px auto', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', padding: '0', overflow: 'hidden' }}>
+            {/* Header */}
+            <div style={{ background: 'linear-gradient(135deg, #8F00CC, #a855f7)', padding: '20px 25px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '18px', margin: 0, fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-folder-open"></i> Ledgers Menu
+                </h3>
+                <p style={{ margin: '3px 0 0 0', opacity: 0.8, fontSize: '11px' }}>Gateway of Tally &gt; Accounts Info &gt; Ledgers</p>
+              </div>
+              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', border: 'none', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '12px', transition: 'all 0.2s' }}>
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+
+            {/* Menu List */}
+            <div style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Single Ledger Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Single Ledger
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', hotkey: 'C', tab: 'LEDGER_CREATE', idx: 0 },
+                    { label: 'Display', hotkey: 'D', tab: 'LEDGER_DISPLAY', idx: 1 },
+                    { label: 'Alter', hotkey: 'A', tab: 'LEDGER_ALTER', idx: 2 }
+                  ].map(item => {
+                    const isSelected = ledgersMenuSelectedIdx === item.idx;
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setLedgersMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setLedgersMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit',
+                          fontSize: '14.5px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 0 && <i className="fas fa-plus-circle"></i>}
+                            {item.idx === 1 && <i className="fas fa-eye"></i>}
+                            {item.idx === 2 && <i className="fas fa-edit"></i>}
+                          </span>
+                          <span>
+                            {isSelected ? (
+                              <>
+                                <strong style={{ textDecoration: 'underline', color: '#8F00CC' }}>{item.label[0]}</strong>
+                                {item.label.slice(1)}
+                              </>
+                            ) : (
+                              <>
+                                <span style={{ color: '#8F00CC', fontWeight: '800' }}>{item.label[0]}</span>
+                                {item.label.slice(1)}
+                              </>
+                            )}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Multiple Ledgers Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Multiple Ledgers
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', hotkey: 'R', tab: 'MULTI_LEDGER_CREATE', idx: 3 },
+                    { label: 'Display', hotkey: 'I', tab: 'MULTI_LEDGER_DISPLAY', idx: 4 },
+                    { label: 'Alter', hotkey: 'L', tab: 'MULTI_LEDGER_ALTER', idx: 5 }
+                  ].map(item => {
+                    const isSelected = ledgersMenuSelectedIdx === item.idx;
+                    const hotkeyChar = item.hotkey;
+                    const labelStr = item.label;
+                    const charIdx = labelStr.toLowerCase().indexOf(hotkeyChar.toLowerCase());
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setLedgersMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setLedgersMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit',
+                          fontSize: '14.5px',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 3 && <i className="fas fa-cubes"></i>}
+                            {item.idx === 4 && <i className="fas fa-list-ul"></i>}
+                            {item.idx === 5 && <i className="fas fa-sliders-h"></i>}
+                          </span>
+                          <span>
+                            {charIdx >= 0 ? (
+                              <>
+                                {labelStr.slice(0, charIdx)}
+                                <span style={{ color: '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>{labelStr[charIdx]}</span>
+                                {labelStr.slice(charIdx + 1)}
+                              </>
+                            ) : labelStr}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Separator and Quit Option */}
+              <div style={{ borderTop: '1px solid rgba(143, 0, 204, 0.08)', paddingTop: '15px' }}>
+                {(() => {
+                  const isSelected = ledgersMenuSelectedIdx === 6;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => { setLedgersMenuSelectedIdx(6); setActiveTab('DASHBOARD'); }}
+                      onMouseEnter={() => setLedgersMenuSelectedIdx(6)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        padding: '12px 18px',
+                        border: isSelected ? '1.5px solid #cc0000' : '1.5px solid transparent',
+                        borderRadius: '8px',
+                        background: isSelected ? '#fff5f5' : 'transparent',
+                        color: isSelected ? '#cc0000' : '#000000',
+                        fontFamily: 'inherit',
+                        fontSize: '14.5px',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                        transition: 'all 0.15s ease-in-out',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: isSelected ? '#cc0000' : '#64748b', width: '20px' }}>
+                          <i className="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span>
+                          <span style={{ color: isSelected ? '#cc0000' : '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>Q</span>uit
+                        </span>
+                      </span>
+                      {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#cc0000' }}></span>}
+                    </button>
+                  );
+                })()}
+              </div>
+            </div>
+            
+            {/* Footer hint */}
+            <div style={{ background: '#f8fafc', padding: '10px 25px', borderTop: '1px solid #e2e8f0', color: '#64748b', fontSize: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Use Arrow keys &amp; Enter to navigate</span>
+              <span>Hotkeys: C, D, A, R, I, L, Q</span>
+            </div>
+          </div>
+        );
+
+      case 'GROUP_CREATE':
+        return (
+          <form onSubmit={handleGroupSubmit} className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
+            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-folder-plus" style={{ marginRight: '8px' }}></i> Group Creation (Account Masters)
+                </h3>
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button type="submit" style={{ background: '#8F00CC', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Save (Ctrl+A)</button>
+                <button type="button" onClick={() => setActiveTab('GROUPS')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
+              </div>
+            </div>
+
+            <div style={{ boxSizing: 'border-box', maxWidth: '650px', margin: '0 auto' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', boxSizing: 'border-box' }}>
+                <div>
+                  <label style={{ ...labelStyle, color: '#000000' }}>Name of Group</label>
+                  <input
+                    ref={groupNameRef}
+                    type="text"
+                    required
+                    value={groupForm.name}
+                    onChange={(e) => setGroupForm(prev => ({ ...prev, name: e.target.value }))}
+                    style={{ ...inputStyle, fontSize: '16px', fontWeight: 'bold' }}
+                    placeholder="e.g. Sub Debtors Patna"
+                  />
+                </div>
+
+                <div>
+                  <label style={{ ...labelStyle, color: '#000000' }}>Under (Parent Group Head)</label>
+                  <select
+                    value={groupForm.parent}
+                    onChange={(e) => setGroupForm(prev => ({ ...prev, parent: e.target.value }))}
+                    style={inputStyle}
+                  >
+                    <option value="Primary">Primary</option>
+                    {groupsList.map((g, idx) => (
+                      <option key={idx} value={g.name}>{g.name}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', boxSizing: 'border-box' }}>
+                  <div style={{ boxSizing: 'border-box' }}>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Group behaves like a sub-ledger</label>
+                    <select style={inputStyle}>
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                  <div style={{ boxSizing: 'border-box' }}>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Net Debit/Credit Balances for Reporting</label>
+                    <select style={inputStyle}>
+                      <option>No</option>
+                      <option>Yes</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px', borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '20px' }}>
+                <button
+                  type="submit"
+                  style={{
+                    background: '#efe0ff',
+                    color: '#8F00CC',
+                    padding: '10px 30px',
+                    border: '1px solid #8F00CC',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  Accept (Ctrl+A)
+                </button>
+              </div>
+            </div>
+          </form>
+        );
+
+      case 'GROUP_DISPLAY': {
+        const filteredGroups = groupsList.filter(g => 
+          g.name.toLowerCase().includes(groupSearchQuery.toLowerCase())
+        );
+
         return (
           <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
             <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}><i className="fas fa-file-invoice" style={{ marginRight: '8px' }}></i> Accounting Voucher Types</h3>
-                <p style={{ margin: '5px 0 0 0', color: '#636c76', fontSize: '13px' }}>Configure numbering and settings for accounting vouchers</p>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-eye" style={{ marginRight: '8px' }}></i> Group Display
+                </h3>
               </div>
-              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
+              <button onClick={() => selectedGroupDisplay ? setSelectedGroupDisplay(null) : setActiveTab('GROUPS')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>
+                Esc: Back
+              </button>
+            </div>
+
+            {selectedGroupDisplay ? (
+              <div style={{ boxSizing: 'border-box', maxWidth: '650px', margin: '0 auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', boxSizing: 'border-box' }}>
+                  <div>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Name of Group</label>
+                    <input type="text" readOnly value={selectedGroupDisplay.name} style={{ ...inputStyle, fontSize: '16px', fontWeight: 'bold', background: '#f8fafc' }} />
+                  </div>
+                  <div>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Under (Parent Group Head)</label>
+                    <input type="text" readOnly value={selectedGroupDisplay.parent} style={{ ...inputStyle, background: '#f8fafc' }} />
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', boxSizing: 'border-box' }}>
+                    <div style={{ boxSizing: 'border-box' }}>
+                      <label style={{ ...labelStyle, color: '#000000' }}>Group behaves like a sub-ledger</label>
+                      <input type="text" readOnly value="No" style={{ ...inputStyle, background: '#f8fafc' }} />
+                    </div>
+                    <div style={{ boxSizing: 'border-box' }}>
+                      <label style={{ ...labelStyle, color: '#000000' }}>Net Debit/Credit Balances for Reporting</label>
+                      <input type="text" readOnly value="No" style={{ ...inputStyle, background: '#f8fafc' }} />
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px' }}>
+                  <button onClick={() => setSelectedGroupDisplay(null)} style={{ background: '#8F00CC', color: '#fff', border: 'none', padding: '10px 25px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+                    Back to List
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{ marginBottom: '20px' }}>
+                  <input
+                    type="text"
+                    placeholder="Search Groups..."
+                    value={groupSearchQuery}
+                    onChange={(e) => setGroupSearchQuery(e.target.value)}
+                    style={{ ...inputStyle, maxWidth: '400px' }}
+                  />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '15px' }}>
+                  {filteredGroups.map((g, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => setSelectedGroupDisplay(g)}
+                      className="company-list-item"
+                      style={{ padding: '15px', borderRadius: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    >
+                      <span style={{ fontWeight: '600' }}><i className="fas fa-folder" style={{ color: '#8F00CC', marginRight: '8px' }}></i>{g.name}</span>
+                      <span style={{ fontSize: '11px', color: '#64748b' }}>({g.parent})</span>
+                    </div>
+                  ))}
+                  {filteredGroups.length === 0 && (
+                    <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '30px', color: '#64748b' }}>
+                      No groups found.
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      case 'GROUP_ALTER': {
+        const filteredGroups = groupsList.filter(g => 
+          g.name.toLowerCase().includes(groupSearchQuery.toLowerCase())
+        );
+
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
+            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-edit" style={{ marginRight: '8px' }}></i> Group Alteration
+                </h3>
+              </div>
+              <button
+                onClick={() => {
+                  if (alterGroupSelect) {
+                    setAlterGroupSelect('');
+                  } else {
+                    setActiveTab('GROUPS');
+                  }
+                }}
+                style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}
+              >
+                Esc: Back
+              </button>
+            </div>
+
+            {alterGroupSelect ? (
+              <form onSubmit={handleGroupAlterSubmit} style={{ boxSizing: 'border-box', maxWidth: '650px', margin: '0 auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px', boxSizing: 'border-box' }}>
+                  <div>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Name of Group</label>
+                    <input
+                      type="text"
+                      required
+                      value={alterGroupForm.name}
+                      onChange={(e) => setAlterGroupForm(prev => ({ ...prev, name: e.target.value }))}
+                      style={{ ...inputStyle, fontSize: '16px', fontWeight: 'bold' }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ ...labelStyle, color: '#000000' }}>Under (Parent Group Head)</label>
+                    <select
+                      value={alterGroupForm.parent}
+                      onChange={(e) => setAlterGroupForm(prev => ({ ...prev, parent: e.target.value }))}
+                      style={inputStyle}
+                    >
+                      <option value="Primary">Primary</option>
+                      {groupsList.filter(g => g.name !== alterGroupSelect).map((g, idx) => (
+                        <option key={idx} value={g.name}>{g.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '30px', borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '20px', gap: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirm(`Are you sure you want to delete the group "${alterGroupSelect}"?`)) {
+                        setGroupsList(prev => prev.filter(g => g.name !== alterGroupSelect));
+                        setSuccessMessage(`Group "${alterGroupSelect}" deleted successfully!`);
+                        setShowSuccessModal(true);
+                        setAlterGroupSelect('');
+                      }
+                    }}
+                    style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
+                  >
+                    Delete Group
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      background: '#efe0ff',
+                      color: '#8F00CC',
+                      padding: '10px 30px',
+                      border: '1px solid #8F00CC',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    Accept (Ctrl+A)
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div>
+                <div style={{ marginBottom: '20px' }}>
+                  <input
+                    type="text"
+                    placeholder="Search Groups to Alter..."
+                    value={groupSearchQuery}
+                    onChange={(e) => setGroupSearchQuery(e.target.value)}
+                    style={{ ...inputStyle, maxWidth: '400px' }}
+                  />
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '15px' }}>
+                  {filteredGroups.map((g, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => {
+                        setAlterGroupSelect(g.name);
+                        setAlterGroupForm({ name: g.name, parent: g.parent });
+                      }}
+                      className="company-list-item"
+                      style={{ padding: '15px', borderRadius: '8px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    >
+                      <span style={{ fontWeight: '600' }}><i className="fas fa-edit" style={{ color: '#8F00CC', marginRight: '8px' }}></i>{g.name}</span>
+                      <span style={{ fontSize: '11px', color: '#64748b' }}>({g.parent})</span>
+                    </div>
+                  ))}
+                  {filteredGroups.length === 0 && (
+                    <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '30px', color: '#64748b' }}>
+                      No groups found.
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      case 'MULTI_GROUP_CREATE':
+        return (
+          <form onSubmit={handleMultiGroupSubmit} className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
+            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-cubes" style={{ marginRight: '8px' }}></i> Multiple Groups Creation
+                </h3>
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button type="submit" style={{ background: '#8F00CC', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Save (Ctrl+A)</button>
+                <button type="button" onClick={() => setActiveTab('GROUPS')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
+              </div>
+            </div>
+
+            <div style={{ width: '100%', overflowX: 'auto', marginBottom: '20px' }}>
+              <table className="report-table premium-table" style={{ width: '100%' }}>
+                <thead>
+                  <tr>
+                    <th style={{ width: '10%', textAlign: 'center' }}>S.No</th>
+                    <th style={{ width: '50%' }}>Name of Group</th>
+                    <th style={{ width: '40%' }}>Under Group head</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {multiGroupForm.map((row, idx) => (
+                    <tr key={idx}>
+                      <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{idx + 1}</td>
+                      <td>
+                        <input
+                          type="text"
+                          value={row.name}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setMultiGroupForm(prev => prev.map((r, i) => i === idx ? { ...r, name: val } : r));
+                          }}
+                          placeholder={`Group ${idx + 1} Name`}
+                          style={{ ...inputStyle, border: '1px solid #e2e8f0', borderRadius: '4px', padding: '6px 12px' }}
+                        />
+                      </td>
+                      <td>
+                        <select
+                          value={row.parent}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setMultiGroupForm(prev => prev.map((r, i) => i === idx ? { ...r, parent: val } : r));
+                          }}
+                          style={{ ...inputStyle, border: '1px solid #e2e8f0', borderRadius: '4px', padding: '6px 12px' }}
+                        >
+                          <option value="Primary">Primary</option>
+                          {groupsList.map((g, gi) => (
+                            <option key={gi} value={g.name}>{g.name}</option>
+                          ))}
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={() => setMultiGroupForm(prev => [...prev, { name: '', parent: 'Primary' }])}
+                style={{ background: '#efe0ff', color: '#8F00CC', border: '1px solid #8F00CC', padding: '8px 16px', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}
+              >
+                + Add More Rows
+              </button>
+              <button
+                type="submit"
+                style={{
+                  background: '#8F00CC',
+                  color: '#fff',
+                  padding: '10px 30px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold'
+                }}
+              >
+                Accept (Ctrl+A)
+              </button>
+            </div>
+          </form>
+        );
+
+      case 'MULTI_GROUP_DISPLAY':
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
+            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-list-ul" style={{ marginRight: '8px' }}></i> Multiple Groups Display
+                </h3>
+              </div>
+              <button onClick={() => setActiveTab('GROUPS')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
             </div>
 
             <div style={{ width: '100%', overflowX: 'auto' }}>
               <table className="report-table premium-table">
                 <thead>
                   <tr>
-                    <th>Voucher Type Name</th>
-                    <th>Parent Voucher Type</th>
-                    <th>Numbering Method</th>
-                    <th>Status</th>
+                    <th style={{ width: '10%', textAlign: 'center' }}>S.No</th>
+                    <th style={{ width: '50%' }}>Group Name</th>
+                    <th style={{ width: '40%' }}>Under Parent Head</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    { type: 'Payment', parent: 'Payment', numbering: 'Automatic', status: 'Active' },
-                    { type: 'Receipt', parent: 'Receipt', numbering: 'Automatic', status: 'Active' },
-                    { type: 'Contra', parent: 'Contra', numbering: 'Automatic', status: 'Active' },
-                    { type: 'Journal', parent: 'Journal', numbering: 'Manual', status: 'Active' },
-                    { type: 'Sales', parent: 'Sales', numbering: 'Automatic', status: 'Active' },
-                    { type: 'Purchase', parent: 'Purchase', numbering: 'Automatic', status: 'Active' }
-                  ].map((v, idx) => (
+                  {groupsList.map((g, idx) => (
                     <tr key={idx}>
-                      <td style={{ fontWeight: 'bold', color: '#000000' }}>{v.type}</td>
-                      <td>{v.parent}</td>
-                      <td style={{ color: '#007bff', fontWeight: '600' }}>{v.numbering}</td>
-                      <td><span className="status-pill verified">{v.status}</span></td>
+                      <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{idx + 1}</td>
+                      <td style={{ fontWeight: 'bold', color: '#000000' }}>{g.name}</td>
+                      <td>
+                        <span className="shortcut-badge" style={{ background: '#efe0ff', color: '#8F00CC', border: '1px solid #efe0ff', margin: 0 }}>
+                          {g.parent}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+          </div>
+        );
+
+      case 'MULTI_GROUP_ALTER':
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px' }}>
+            <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}>
+                  <i className="fas fa-sliders-h" style={{ marginRight: '8px' }}></i> Multiple Groups Alteration
+                </h3>
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button
+                  onClick={() => {
+                    setGroupsList(multiGroupAlterList);
+                    setSuccessMessage("Multiple Groups updated successfully!");
+                    setShowSuccessModal(true);
+                    setActiveTab('GROUPS');
+                  }}
+                  style={{ background: '#8F00CC', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}
+                >
+                  Save (Ctrl+A)
+                </button>
+                <button onClick={() => setActiveTab('GROUPS')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Back</button>
+              </div>
+            </div>
+
+            <div style={{ width: '100%', overflowX: 'auto', marginBottom: '20px' }}>
+              <table className="report-table premium-table" style={{ width: '100%' }}>
+                <thead>
+                  <tr>
+                    <th style={{ width: '10%', textAlign: 'center' }}>S.No</th>
+                    <th style={{ width: '50%' }}>Group Name</th>
+                    <th style={{ width: '40%' }}>Under Parent Head</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {multiGroupAlterList.map((row, idx) => (
+                    <tr key={idx}>
+                      <td style={{ textAlign: 'center', fontWeight: 'bold' }}>{idx + 1}</td>
+                      <td>
+                        <input
+                          type="text"
+                          value={row.name}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setMultiGroupAlterList(prev => prev.map((r, i) => i === idx ? { ...r, name: val } : r));
+                          }}
+                          style={{ ...inputStyle, border: '1px solid #e2e8f0', borderRadius: '4px', padding: '6px 12px', fontWeight: 'bold' }}
+                        />
+                      </td>
+                      <td>
+                        <select
+                          value={row.parent}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setMultiGroupAlterList(prev => prev.map((r, i) => i === idx ? { ...r, parent: val } : r));
+                          }}
+                          style={{ ...inputStyle, border: '1px solid #e2e8f0', borderRadius: '4px', padding: '6px 12px' }}
+                        >
+                          <option value="Primary">Primary</option>
+                          {groupsList.filter(g => g.name !== row.name).map((g, gi) => (
+                            <option key={gi} value={g.name}>{g.name}</option>
+                          ))}
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => {
+                  setGroupsList(multiGroupAlterList);
+                  setSuccessMessage("Multiple Groups updated successfully!");
+                  setShowSuccessModal(true);
+                  setActiveTab('GROUPS');
+                }}
+                style={{
+                  background: '#8F00CC',
+                  color: '#fff',
+                  padding: '10px 30px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold'
+                }}
+              >
+                Save All changes
+              </button>
+            </div>
+          </div>
+        );
+
+      case 'VOUCHER_TYPES':
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '480px', margin: '30px auto', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', padding: '0', overflow: 'hidden' }}>
+            {/* Header */}
+            <div style={{ background: 'linear-gradient(135deg, #8F00CC, #a855f7)', padding: '20px 25px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '18px', margin: 0, fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <i className="fas fa-file-invoice"></i> Voucher Types Menu
+                </h3>
+                <p style={{ margin: '3px 0 0 0', opacity: 0.8, fontSize: '11px' }}>Gateway of Tally &gt; Accounts Info &gt; Voucher Types</p>
+              </div>
+              <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', border: 'none', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '12px', transition: 'all 0.2s' }}>
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+
+            {/* Menu List */}
+            <div style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* Single Voucher Type Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Single Voucher Type
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', tab: 'VT_CREATE', idx: 0 },
+                    { label: 'Display', tab: 'VT_DISPLAY', idx: 1 },
+                    { label: 'Alter', tab: 'VT_ALTER', idx: 2 }
+                  ].map(item => {
+                    const isSelected = voucherTypesMenuSelectedIdx === item.idx;
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setVoucherTypesMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setVoucherTypesMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex', alignItems: 'center', width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit', fontSize: '14.5px', fontWeight: '700',
+                          cursor: 'pointer', textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 0 && <i className="fas fa-plus-circle"></i>}
+                            {item.idx === 1 && <i className="fas fa-eye"></i>}
+                            {item.idx === 2 && <i className="fas fa-edit"></i>}
+                          </span>
+                          <span>
+                            {isSelected ? (
+                              <><strong style={{ textDecoration: 'underline', color: '#8F00CC' }}>{item.label[0]}</strong>{item.label.slice(1)}</>
+                            ) : (
+                              <><span style={{ color: '#8F00CC', fontWeight: '800' }}>{item.label[0]}</span>{item.label.slice(1)}</>
+                            )}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Multiple Voucher Types Section */}
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#8F00CC', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', paddingLeft: '10px' }}>
+                  Multiple Voucher Types
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[
+                    { label: 'Create', hotkey: 'R', tab: 'MULTI_VT_CREATE', idx: 3 },
+                    { label: 'Display', hotkey: 'I', tab: 'MULTI_VT_DISPLAY', idx: 4 },
+                    { label: 'Alter', hotkey: 'L', tab: 'MULTI_VT_ALTER', idx: 5 }
+                  ].map(item => {
+                    const isSelected = voucherTypesMenuSelectedIdx === item.idx;
+                    const labelStr = item.label;
+                    const charIdx = labelStr.toLowerCase().indexOf(item.hotkey.toLowerCase());
+                    return (
+                      <button
+                        type="button"
+                        key={item.idx}
+                        onClick={() => { setVoucherTypesMenuSelectedIdx(item.idx); setActiveTab(item.tab); }}
+                        onMouseEnter={() => setVoucherTypesMenuSelectedIdx(item.idx)}
+                        style={{
+                          display: 'flex', alignItems: 'center', width: '100%',
+                          padding: '12px 18px',
+                          border: isSelected ? '1.5px solid #0056b3' : '1.5px solid transparent',
+                          borderRadius: '8px',
+                          background: isSelected ? '#ffffff' : 'transparent',
+                          color: isSelected ? '#8F00CC' : '#000000',
+                          fontFamily: 'inherit', fontSize: '14.5px', fontWeight: '700',
+                          cursor: 'pointer', textAlign: 'left',
+                          transition: 'all 0.15s ease-in-out',
+                          boxShadow: isSelected ? '0 4px 12px rgba(0,0,0,0.05)' : 'none',
+                          justifyContent: 'space-between'
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ color: isSelected ? '#8F00CC' : '#64748b', width: '20px' }}>
+                            {item.idx === 3 && <i className="fas fa-cubes"></i>}
+                            {item.idx === 4 && <i className="fas fa-list-ul"></i>}
+                            {item.idx === 5 && <i className="fas fa-sliders-h"></i>}
+                          </span>
+                          <span>
+                            {charIdx >= 0 ? (
+                              <>
+                                {labelStr.slice(0, charIdx)}
+                                <span style={{ color: '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>{labelStr[charIdx]}</span>
+                                {labelStr.slice(charIdx + 1)}
+                              </>
+                            ) : labelStr}
+                          </span>
+                        </span>
+                        {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#8F00CC' }}></span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Separator and Quit */}
+              <div style={{ borderTop: '1px solid rgba(143, 0, 204, 0.08)', paddingTop: '15px' }}>
+                {(() => {
+                  const isSelected = voucherTypesMenuSelectedIdx === 6;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => { setVoucherTypesMenuSelectedIdx(6); setActiveTab('DASHBOARD'); }}
+                      onMouseEnter={() => setVoucherTypesMenuSelectedIdx(6)}
+                      style={{
+                        display: 'flex', alignItems: 'center', width: '100%',
+                        padding: '12px 18px',
+                        border: isSelected ? '1.5px solid #cc0000' : '1.5px solid transparent',
+                        borderRadius: '8px',
+                        background: isSelected ? '#fff5f5' : 'transparent',
+                        color: isSelected ? '#cc0000' : '#000000',
+                        fontFamily: 'inherit', fontSize: '14.5px', fontWeight: '700',
+                        cursor: 'pointer', textAlign: 'left',
+                        transition: 'all 0.15s ease-in-out',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <span style={{ color: isSelected ? '#cc0000' : '#64748b', width: '20px' }}>
+                          <i className="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span>
+                          <span style={{ color: isSelected ? '#cc0000' : '#8F00CC', fontWeight: '800', textDecoration: isSelected ? 'underline' : 'none' }}>Q</span>uit
+                        </span>
+                      </span>
+                      {isSelected && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#cc0000' }}></span>}
+                    </button>
+                  );
+                })()}
+              </div>
+            </div>
+
+            {/* Footer hint */}
+            <div style={{ background: '#f8fafc', padding: '10px 25px', borderTop: '1px solid #e2e8f0', color: '#64748b', fontSize: '11px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>Use Arrow keys &amp; Enter to navigate</span>
+              <span>Hotkeys: C, D, A, R, I, L, Q</span>
+            </div>
+          </div>
+        );
+
+      case 'VT_CREATE':
+      case 'VT_DISPLAY':
+      case 'VT_ALTER':
+      case 'MULTI_VT_CREATE':
+      case 'MULTI_VT_DISPLAY':
+      case 'MULTI_VT_ALTER':
+        return (
+          <div className="report-card animate-fade" style={{ gridColumn: '1 / -1', maxWidth: '100%', boxSizing: 'border-box', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', padding: '25px', textAlign: 'center' }}>
+            <i className="fas fa-file-invoice" style={{ fontSize: '50px', color: '#8F00CC', marginBottom: '20px', opacity: 0.3 }}></i>
+            <h3 style={{ color: '#000', fontSize: '20px', fontWeight: '800' }}>{activeTab.replace(/_/g, ' ')}</h3>
+            <p style={{ color: '#636c76' }}>The <strong>{activeTab.replace(/_/g, ' ')}</strong> module is currently being optimized for the Elite Modern interface.</p>
+            <button onClick={() => setActiveTab('VOUCHER_TYPES')} style={{ marginTop: '20px', background: '#cc0000', color: '#fff', border: 'none', padding: '10px 25px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>Esc: Back</button>
           </div>
         );
 
@@ -2001,20 +3275,24 @@ const Dashboard = () => {
               
               <div className={`menu-item ${openMenus.accountsInfo ? 'open' : ''}`}>
                 <button 
-                  className={`nav-btn ${['GROUPS', 'LEDGER', 'VOUCHER_TYPES'].includes(activeTab) ? 'active' : ''}`} 
+                  className={`nav-btn ${[
+                    'GROUPS', 'GROUP_CREATE', 'GROUP_DISPLAY', 'GROUP_ALTER', 'MULTI_GROUP_CREATE', 'MULTI_GROUP_DISPLAY', 'MULTI_GROUP_ALTER',
+                    'LEDGER', 'LEDGER_CREATE', 'LEDGER_DISPLAY', 'LEDGER_ALTER', 'MULTI_LEDGER_CREATE', 'MULTI_LEDGER_DISPLAY', 'MULTI_LEDGER_ALTER',
+                    'VOUCHER_TYPES', 'VT_CREATE', 'VT_DISPLAY', 'VT_ALTER', 'MULTI_VT_CREATE', 'MULTI_VT_DISPLAY', 'MULTI_VT_ALTER'
+                  ].includes(activeTab) ? 'active' : ''}`} 
                   onClick={() => toggleMenu('accountsInfo')}
                 >
                   <i className="fas fa-book"></i> Accounts Info
                   <i className={`fas fa-chevron-${openMenus.accountsInfo ? 'up' : 'down'}`} style={{ marginLeft: 'auto', fontSize: '10px' }}></i>
                 </button>
                 <div className="sub-menu">
-                  <button className={`sub-btn ${activeTab === 'GROUPS' ? 'active' : ''}`} onClick={() => setActiveTab('GROUPS')}>
+                  <button className={`sub-btn ${['GROUPS', 'GROUP_CREATE', 'GROUP_DISPLAY', 'GROUP_ALTER', 'MULTI_GROUP_CREATE', 'MULTI_GROUP_DISPLAY', 'MULTI_GROUP_ALTER'].includes(activeTab) ? 'active' : ''}`} onClick={() => setActiveTab('GROUPS')}>
                     Groups
                   </button>
-                  <button className={`sub-btn ${activeTab === 'LEDGER' ? 'active' : ''}`} onClick={() => setActiveTab('LEDGER')}>
+                  <button className={`sub-btn ${['LEDGER', 'LEDGER_CREATE', 'LEDGER_DISPLAY', 'LEDGER_ALTER', 'MULTI_LEDGER_CREATE', 'MULTI_LEDGER_DISPLAY', 'MULTI_LEDGER_ALTER'].includes(activeTab) ? 'active' : ''}`} onClick={() => setActiveTab('LEDGER')}>
                     Ledgers
                   </button>
-                  <button className={`sub-btn ${activeTab === 'VOUCHER_TYPES' ? 'active' : ''}`} onClick={() => setActiveTab('VOUCHER_TYPES')}>
+                  <button className={`sub-btn ${['VOUCHER_TYPES', 'VT_CREATE', 'VT_DISPLAY', 'VT_ALTER', 'MULTI_VT_CREATE', 'MULTI_VT_DISPLAY', 'MULTI_VT_ALTER'].includes(activeTab) ? 'active' : ''}`} onClick={() => setActiveTab('VOUCHER_TYPES')}>
                     Voucher Type
                   </button>
                   <button className="sub-btn" onClick={() => setOpenMenus(prev => ({ ...prev, accountsInfo: false }))} style={{ marginTop: '5px', borderTop: '1px solid rgba(143, 0, 204, 0.05)' }}>

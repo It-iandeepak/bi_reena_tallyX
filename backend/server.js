@@ -30,6 +30,34 @@ app.use(express.json());
 
 // Database connection logic for Serverless environments (cached connection)
 let cachedDb = null;
+let isSeeded = false;
+
+const seedDefaultAdmin = async () => {
+    if (isSeeded) return;
+    try {
+        const User = require('./models/User');
+        const count = await User.countDocuments();
+        if (count === 0) {
+            console.log('No users found in database. Seeding default admin user...');
+            const adminEmail = process.env.DEFAULT_ADMIN_EMAIL || 'chhotu6826@gmail.com';
+            const adminPassword = process.env.DEFAULT_ADMIN_PASSWORD || '123456';
+            
+            const defaultAdmin = new User({
+                email: adminEmail,
+                password: adminPassword,
+                name: 'Chhotu Kumar',
+                companyName: 'Bireena TallyX',
+                role: 'admin'
+            });
+            await defaultAdmin.save();
+            console.log(`Default admin user seeded successfully: ${adminEmail}`);
+        }
+        isSeeded = true;
+    } catch (err) {
+        console.error('Error seeding default admin user:', err);
+    }
+};
+
 const connectDB = async () => {
     if (cachedDb && mongoose.connection.readyState === 1) {
         return cachedDb;
@@ -37,6 +65,7 @@ const connectDB = async () => {
     console.log('Connecting to database...');
     cachedDb = await mongoose.connect(MONGO_URI);
     console.log('Database connected');
+    await seedDefaultAdmin();
     return cachedDb;
 };
 
