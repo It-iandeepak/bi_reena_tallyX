@@ -3217,7 +3217,9 @@ const Dashboard = () => {
             <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}><i className="fas fa-folder-open" style={{ marginRight: '8px' }}></i> Display Menu</h3>
-                <p style={{ margin: '5px 0 0 0', color: '#636c76', fontSize: '13px' }}>Gateway of Tally > Display More Reports</p>
+                <p style={{ margin: '15px 0 0', color: '#636c76', fontSize: '13px' }}>
+                  {'>Gateway of Tally > Display More'}
+                </p>
               </div>
               <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Quit</button>
             </div>

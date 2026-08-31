@@ -4,3 +4,9 @@ frontend/dist/
 frontend/.vite/
 backend/node_modules/
 .DS_Store
+
+# Certificates
+*.pem
+*.crt
+*.key
+.certs/
