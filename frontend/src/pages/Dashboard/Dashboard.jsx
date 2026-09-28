@@ -18,8 +18,27 @@ const Dashboard = () => {
   const [settingsModalTitle, setSettingsModalTitle] = useState('');
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const storedCompany = localStorage.getItem('tallyx_company_name');
   const [user, setUser] = useState({ name: 'Admin User', email: 'admin@bireena.com', initials: 'AD', companyName: storedCompany || '' });
+
+  // Lock background scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileNavOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileNavOpen]);
+
+  // Automatically close mobile sidebar on navigation/tab switch
+  useEffect(() => {
+    setIsMobileNavOpen(false);
+  }, [activeTab]);
   
   // Groups State
   const [groupsList, setGroupsList] = useState([
@@ -3217,7 +3236,9 @@ const Dashboard = () => {
             <div className="report-header" style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '15px', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h3 style={{ fontSize: '20px', color: '#8F00CC', margin: 0, fontWeight: '800' }}><i className="fas fa-folder-open" style={{ marginRight: '8px' }}></i> Display Menu</h3>
-                <p style={{ margin: '5px 0 0 0', color: '#636c76', fontSize: '13px' }}>Gateway of Tally > Display More Reports</p>
+                <p style={{ margin: '15px 0 0', color: '#636c76', fontSize: '13px' }}>
+                  {'>Gateway of Tally > Display More'}
+                </p>
               </div>
               <button onClick={() => setActiveTab('DASHBOARD')} style={{ background: '#cc0000', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>Esc: Quit</button>
             </div>
@@ -3251,9 +3272,23 @@ const Dashboard = () => {
   return (
     <div className={`app-wrapper ${isDarkMode ? '' : 'light-mode'}`}>
 
-      <aside className="sidebar">
-        <div className="sidebar-header" style={{ padding: '40px 25px', borderBottom: '1px solid rgba(143, 0, 204, 0.05)', background: '#fff' }}>
+      {/* Mobile Backdrop Overlay */}
+      <div 
+        className={`sidebar-overlay ${isMobileNavOpen ? 'visible' : ''}`}
+        onClick={() => setIsMobileNavOpen(false)}
+        aria-hidden="true"
+      />
+
+      <aside className={`sidebar ${isMobileNavOpen ? 'mobile-open' : ''}`}>
+        <div className="sidebar-header" style={{ padding: '25px 20px', borderBottom: '1px solid rgba(143, 0, 204, 0.05)', background: '#fff', position: 'relative' }}>
           <img src={logoImage} alt="BIREENA Tally X" className="app-logo" style={{ filter: 'brightness(0) saturate(100%) invert(18%) sepia(88%) saturate(5185%) hue-rotate(275deg) brightness(80%) contrast(115%)' }} />
+          <button 
+            className="sidebar-close-btn" 
+            onClick={() => setIsMobileNavOpen(false)}
+            aria-label="Close sidebar menu"
+          >
+            <i className="fas fa-times"></i>
+          </button>
         </div>
 
         <nav className="nav-group">
@@ -3396,22 +3431,47 @@ const Dashboard = () => {
 
       <main className="main-content">
         <header className="top-nav">
-          <div className="command-center">
-            <i className="fas fa-bolt" style={{ color: 'var(--tally-yellow)' }}></i>
-            <input type="text" placeholder="Go To... (Alt+G)" />
+          <div className="top-nav-left">
+            <button 
+              className="dashboard-hamburger-btn" 
+              onClick={() => setIsMobileNavOpen(prev => !prev)}
+              aria-label="Toggle navigation menu"
+            >
+              <i className="fas fa-bars"></i>
+            </button>
+            <div className={`command-center ${isMobileSearchOpen ? 'mobile-search-active' : ''}`}>
+              <i className="fas fa-bolt" style={{ color: 'var(--tally-yellow)' }}></i>
+              <input type="text" placeholder="Go To... (Alt+G)" />
+              {isMobileSearchOpen && (
+                <button 
+                  className="mobile-search-close" 
+                  onClick={() => setIsMobileSearchOpen(false)}
+                  aria-label="Close search"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              )}
+            </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <button className="theme-toggle" onClick={toggleTheme}>
-              <i className={isDarkMode ? "fas fa-moon" : "fas fa-sun"}></i>
-              <span>{isDarkMode ? "Dark Mode" : "Light Mode"}</span>
+          <div className="top-nav-right">
+            <button 
+              className="mobile-search-trigger-btn"
+              onClick={() => setIsMobileSearchOpen(prev => !prev)}
+              aria-label="Search"
+            >
+              <i className="fas fa-search"></i>
             </button>
-            <div style={{ textAlign: 'right' }}>
-              <p style={{ fontSize: '14px', fontWeight: '800' }}>{user.companyName || 'No Company Selected'}</p>
-              <p style={{ fontSize: '11px', color: 'var(--accent-green)', fontWeight: '700' }}>FY 2025-26 | Patna</p>
+            <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+              <i className={isDarkMode ? "fas fa-moon" : "fas fa-sun"}></i>
+              <span className="theme-text">{isDarkMode ? "Dark Mode" : "Light Mode"}</span>
+            </button>
+            <div className="user-company-badge">
+              <p className="company-badge-name">{user.companyName || 'No Company Selected'}</p>
+              <p className="company-badge-sub">FY 2025-26 | Patna</p>
             </div>
             <img src={`https://ui-avatars.com/api/?name=Admin&background=8F00CC&color=fff&bold=true`}
-              style={{ width: '42px', borderRadius: '50%', border: '2px solid var(--border)' }} alt="User" />
+              className="user-nav-avatar" alt="User" />
           </div>
         </header>
 
@@ -3547,7 +3607,7 @@ const Dashboard = () => {
       </main>
 
       {/* 🚀 ADVANCED SHORTCUT HUD (Elite Modern) */}
-      <div style={{
+      <div className="shortcut-hud" style={{
         position: 'fixed',
         bottom: '20px',
         left: '50%',
@@ -3594,6 +3654,53 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+
+      {/* Responsive Success Notification Modal */}
+      {showSuccessModal && (
+        <div className="settings-modal-overlay" onClick={() => setShowSuccessModal(false)}>
+          <div className="settings-modal-content success-modal-card" onClick={e => e.stopPropagation()}>
+            <div style={{ textAlign: 'center', padding: '30px 20px' }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+                background: 'rgba(34, 197, 94, 0.1)',
+                color: '#22c55e',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '30px',
+                margin: '0 auto 16px auto',
+                border: '2px solid rgba(34, 197, 94, 0.2)'
+              }}>
+                <i className="fas fa-check"></i>
+              </div>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '8px', color: 'var(--text-main)' }}>Success</h3>
+              <p style={{ color: 'var(--text-dim)', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+                {successMessage || 'Operation completed successfully!'}
+              </p>
+              <button
+                onClick={() => setShowSuccessModal(false)}
+                style={{
+                  background: 'linear-gradient(135deg, #8F00CC, #a855f7)',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '12px 32px',
+                  borderRadius: '10px',
+                  fontWeight: '700',
+                  fontSize: '14px',
+                  cursor: 'pointer',
+                  width: '100%',
+                  maxWidth: '220px',
+                  boxShadow: '0 4px 14px rgba(143, 0, 204, 0.3)'
+                }}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
